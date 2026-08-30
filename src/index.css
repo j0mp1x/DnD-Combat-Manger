@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #0d0d12;
+    color: #e7e5eb;
+    font-family: Arial, sans-serif;
+}
+
+#root {
+    min-height: 100vh;
+    padding: 40px;
+}
+
+h1 {
+    margin: 0 0 30px;
+    text-align: center;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+
+#initiativePanel {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #16161e;
+    border: 1px solid #292632;
+    border-radius: 12px;
+}
+
+#initiativePanel h1 {
+    margin-bottom: 24px;
+    font-size: 22px;
+    color: #a78bfa;
+}
+
+#listOfFighters {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 10px 0 20px;
+}
+
+.fighter {
+    min-width: 150px;
+    padding: 20px;
+    background: #202027;
+    border: 1px solid #34333d;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 17px;
+}
+
+button {
+    display: block;
+    margin: 25px auto 0;
+    padding: 12px 24px;
+
+    background: #8b5cf6;
+    color: white;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 16px;
+    cursor: pointer;
+
+    transition: 0.15s;
+}
+
+button:hover {
+    background: #a78bfa;
+}
+
+.reactionReady {
+    background: #35c46a;
+    color: #0d0d12;
+    border: 1px solid #35c46a;
+}
+
+.reactionReady:hover {
+    background: #4dde7d;
+}
+
+.reactionUsed {
+    background: #292a30;
+    color: #777980;
+    border: 1px solid #3a3b42;
+}
+
+.reactionUsed:hover {
+    background: #34353c;
+}
