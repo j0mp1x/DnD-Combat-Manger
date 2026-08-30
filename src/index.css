@@ -83,6 +83,34 @@ button:hover {
     background: #a78bfa;
 }
 
+.actionError {
+    background: #8b2020;
+    animation: shake 0.4s ease-in-out;
+}
+
+.actionError:hover {
+    background: #8b2020;
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    50% {
+        transform: translateX(6px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
+}
+
 .reactionReady {
     background: #35c46a;
     color: #0d0d12;

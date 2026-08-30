@@ -8,6 +8,8 @@ function App() {
         currentFighter: 0,
     })
 
+    const [actionError, setActionError] = useState(false)
+
     const onReactionUse = (f) => {
         setGameState((prev) => {
             return {
@@ -30,7 +32,11 @@ function App() {
                     currentFighter: 0,
                     round: prev.round + 1,
                     fighters: prev.fighters.map((e) => {
-                        return { ...e, reaction: true, action: true }
+                        return {
+                            ...e,
+                            reaction: true,
+                            action: e.maxActions,
+                        }
                     }),
                 }
             } else {
@@ -40,6 +46,36 @@ function App() {
                 }
             }
         })
+    }
+
+    const onUseAction = () => {
+        if (!actionError) {
+            if (gameState.fighters[gameState.currentFighter].action > 0) {
+                setGameState((prev) => {
+                    return {
+                        ...prev,
+                        fighters: prev.fighters.map((e) => {
+                            if (
+                                e.id === prev.fighters[prev.currentFighter].id
+                            ) {
+                                return {
+                                    ...e,
+                                    action:
+                                        prev.fighters[prev.currentFighter]
+                                            .action - 1,
+                                }
+                            } else return e
+                        }),
+                    }
+                })
+            } else {
+                setActionError(true)
+
+                setTimeout(() => {
+                    setActionError(false)
+                }, 1000)
+            }
+        }
     }
 
     return (
@@ -61,7 +97,7 @@ function App() {
                                 key={f.id}
                             >
                                 <p>{f.name}</p>
-                                <p>Действие:</p>
+                                <p>Действие: {f.action}</p>
                                 <button
                                     className={
                                         f.reaction
@@ -80,7 +116,18 @@ function App() {
                 </div>
             </div>
             <div id="actions">
-                <button>Потратить действие</button>
+                <button
+                    className={
+                        actionError
+                            ? 'actionButton actionError'
+                            : 'actionButton'
+                    }
+                    onClick={() => {
+                        onUseAction()
+                    }}
+                >
+                    Потратить действие
+                </button>
             </div>
             <button
                 onClick={() => {
