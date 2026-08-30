@@ -1,10 +1,10 @@
 import { createNewId } from '../UTILITES/idCreator'
 
 class Fighter {
-    constructor(name, hp) {
+    constructor(name, hp, initiative) {
         this.id = createNewId()
         this.name = name
-        this.initiative = null
+        this.initiative = initiative
         this.reaction = true
         this.action = true
         this.hp = hp
@@ -13,12 +13,12 @@ class Fighter {
 
 let fighters = []
 
-const AddFighter = (name, hp) => {
-    fighters.push(new Fighter(name, hp))
+const AddFighter = (name, hp, initiative) => {
+    fighters.push(new Fighter(name, hp, initiative))
 }
 
-AddFighter('player 1', 40)
-AddFighter('player 2', 40)
-AddFighter('player 3', 40)
+AddFighter('player 1', 40, 12)
+AddFighter('player 2', 40, 7)
+AddFighter('player 3', 40, 20)
 
 export { fighters }
