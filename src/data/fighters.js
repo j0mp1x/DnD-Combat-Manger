@@ -1,26 +1,41 @@
+import { rollDice } from '../UTILITES/dice'
 import { createNewId } from '../UTILITES/idCreator'
 
 class Fighter {
-    constructor(name, hp, initiative = 1, maxActions = 1) {
+    constructor(name, hp, initiative = 1, maxActions = 1, armorClass) {
         this.id = createNewId()
         this.name = name
-        this.initiative = initiative
+        this.initiative = Number(initiative)
         this.reaction = true
-        this.maxActions = maxActions
-        this.action = this.maxActions
-        this.maxHp = hp
-        this.hp = this.maxHp
+        this.maxActions = Number(maxActions)
+        this.action = Number(this.maxActions)
+        this.maxHp = Number(hp)
+        this.hp = Number(this.maxHp)
+        this.armorClass = armorClass
     }
 }
 
 let fighters = []
 
-const AddFighter = (name, hp, initiative, maxActions) => {
-    fighters.push(new Fighter(name, hp, initiative, maxActions))
+const createFighter = (
+    prev,
+    name,
+    hp,
+    maxActions,
+    armorClass,
+    initiative = 1
+) => {
+    return [
+        ...prev.fighters,
+        new Fighter(name, hp, initiative, maxActions, armorClass),
+    ]
 }
 
-AddFighter('player 1', 40, 12, 2)
-AddFighter('player 2', 40, 7)
-AddFighter('player 3', 40, 20)
+const createFighterFromPreset = (
+    prev,
+    { name, hp, maxActions, armorClass } = preset
+) => {
+    return createFighter(prev, name, hp, maxActions, armorClass, rollDice())
+}
 
-export { fighters }
+export { fighters, createFighter, Fighter, createFighterFromPreset }
