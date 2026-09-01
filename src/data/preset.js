@@ -1,7 +1,7 @@
 import { createNewId } from '../UTILITES/idCreator'
 
 class Preset {
-    constructor(name, hp, maxActions = 1, armorClass) {
+    constructor(name, hp, armorClass, maxActions = 1) {
         this.id = createNewId()
         this.name = name
         this.maxActions = Number(maxActions)
@@ -10,6 +10,6 @@ class Preset {
     }
 }
 
-const Yoshioka = new Preset('Ёшиока', 40, 1, 14)
+const Yoshioka = new Preset('Ёшиока', 40, 14, 1)
 
 export { Preset, Yoshioka }
