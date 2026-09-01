@@ -34,8 +34,4 @@ const createFighter = (
     ]
 }
 
-const createFighterFromPreset = (prev, preset = Preset) => {
-    return createFighter(prev, preset)
-}
-
-export { fighters, createFighter, Fighter, createFighterFromPreset }
+export { fighters, createFighter, Fighter }

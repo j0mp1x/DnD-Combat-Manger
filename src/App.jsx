@@ -1,9 +1,5 @@
 import { useState } from 'react'
-import {
-    createFighter,
-    createFighterFromPreset,
-    fighters,
-} from './data/fighters'
+import { createFighter, fighters } from './data/fighters'
 import { Preset, Yoshioka, createPreset } from './data/preset'
 import ConfirmModal from './components/confirmModal'
 import FormModal from './components/formModal'
@@ -131,18 +127,6 @@ function App() {
         })
     }
 
-    const addFighterFromPreset = (preset) => {
-        setPrevGameState(gameState)
-        setGameState((prev) => {
-            return {
-                ...prev,
-                fighters: createFighterFromPreset(prev, preset).sort(
-                    (a, b) => b.initiative - a.initiative
-                ),
-            }
-        })
-    }
-
     const deletePreset = (preset) => {
         setPresets((prev) => {
             return [...prev].filter((e) => e.id !== preset.id)
@@ -256,8 +240,7 @@ function App() {
                                     <div className="presetActions">
                                         <button
                                             onClick={() => {
-                                                addFighterFromPreset(e)
-                                                console.log(e)
+                                                addFighter(e)
                                             }}
                                         >
                                             Добавить
