@@ -4,9 +4,10 @@ import {
     createFighterFromPreset,
     fighters,
 } from './data/fighters'
-import { Preset, Yoshioka } from './data/preset'
+import { Preset, Yoshioka, createPreset } from './data/preset'
 import ConfirmModal from './components/confirmModal'
 import FormModal from './components/formModal'
+import getDataFromForm from './UTILITES/getData'
 
 function App() {
     const [gameState, setGameState] = useState({
@@ -22,6 +23,11 @@ function App() {
     const [actionError, setActionError] = useState(false)
 
     const [confirmModal, setConfirmModal] = useState(false)
+
+    const [formModal, setFormModal] = useState({
+        isOpen: false,
+        onSubmit: null,
+    })
 
     const onReactionUse = (f) => {
         setPrevGameState(gameState)
@@ -104,33 +110,25 @@ function App() {
     }
 
     const addFighter = (data) => {
-        const name = data.get('name')
-        const hp = data.get('hp')
-        const maxActions = data.get('maxActions')
-        const armorClass = data.get('armorClass')
-        const initiative = data.get('initiative')
-        const saveAsPreset = data.get('saveAsPreset')
-
         setPrevGameState(gameState)
         setGameState((prev) => {
             return {
                 ...prev,
-                fighters: createFighter(
-                    prev,
-                    name,
-                    hp,
-                    armorClass,
-                    maxActions,
-                    initiative
-                ).sort((a, b) => b.initiative - a.initiative),
+                fighters: createFighter(prev, data).sort(
+                    (a, b) => b.initiative - a.initiative
+                ),
             }
         })
 
-        if (saveAsPreset) {
-            setPresets((prev) => {
-                return [...prev, new Preset(name, hp, maxActions, armorClass)]
-            })
+        if (data.saveAsPreset) {
+            addPreset(data)
         }
+    }
+
+    const addPreset = (data) => {
+        setPresets((prev) => {
+            return [...prev, createPreset(data)]
+        })
     }
 
     const addFighterFromPreset = (preset) => {
@@ -144,11 +142,6 @@ function App() {
             }
         })
     }
-
-    const [formModal, setFormModal] = useState({
-        isOpen: false,
-        onSubmit: addFighter,
-    })
 
     const deletePreset = (preset) => {
         setPresets((prev) => {
@@ -232,13 +225,29 @@ function App() {
                 </div>
                 <div id="addFighters">
                     <h1>Управление бойцами</h1>
-                    <button
-                        onClick={() => {
-                            setFormModal({ isOpen: true })
-                        }}
-                    >
-                        Добавить бойца
-                    </button>
+                    <div className="actions">
+                        <button
+                            onClick={() => {
+                                setFormModal({
+                                    isOpen: true,
+                                    onSubmit: addFighter,
+                                })
+                            }}
+                        >
+                            Добавить бойца
+                        </button>
+                        <button
+                            onClick={() => {
+                                setFormModal({
+                                    isOpen: true,
+                                    onSubmit: addPreset,
+                                })
+                            }}
+                        >
+                            Добавить пресет
+                        </button>
+                    </div>
+                    <h2>Пресеты</h2>
                     <div id="presets">
                         {presets.map((e) => {
                             return (
@@ -248,6 +257,7 @@ function App() {
                                         <button
                                             onClick={() => {
                                                 addFighterFromPreset(e)
+                                                console.log(e)
                                             }}
                                         >
                                             Добавить
@@ -275,9 +285,11 @@ function App() {
 
             <FormModal
                 isOpen={formModal.isOpen}
-                onSubmit={addFighter}
+                onSubmit={formModal.onSubmit}
+                getData={getDataFromForm}
                 onClose={() => {
                     setFormModal(false)
+                    setFormModal({ isOpen: false, onSubmit: null })
                 }}
             />
             <ConfirmModal

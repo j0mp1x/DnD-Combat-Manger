@@ -1,9 +1,14 @@
-const FormModal = ({ isOpen, onSubmit, onClose }) => {
+const FormModal = ({ isOpen, onSubmit, onClose, getData }) => {
+    const handleSubmit = async (d) => {
+        const data = await getData(d)
+        await onSubmit(data)
+        onClose()
+    }
     return (
         <div className={`modal ${isOpen ? '' : 'hidden'}`}>
             <div className="modalContent">
                 <h2>Добавить бойца</h2>
-                <form action={onSubmit}>
+                <form action={handleSubmit}>
                     <div>
                         <div className="formFields">
                             <label>Имя</label>
@@ -53,7 +58,7 @@ const FormModal = ({ isOpen, onSubmit, onClose }) => {
                         </div>
                     </div>
                     <div className="formActions">
-                        <button onClick={onClose}>Добавить</button>
+                        <button>Добавить</button>
                         <button type="button" onClick={onClose}>
                             Закрыть
                         </button>

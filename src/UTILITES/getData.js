@@ -1,0 +1,19 @@
+const getDataFromForm = (data) => {
+    const name = data.get('name')
+    const hp = data.get('hp')
+    const maxActions = data.get('maxActions')
+    const armorClass = data.get('armorClass')
+    const initiative = data.get('initiative')
+    const saveAsPreset = data.get('saveAsPreset')
+
+    return {
+        name,
+        hp,
+        maxActions,
+        armorClass,
+        initiative,
+        saveAsPreset,
+    }
+}
+
+export default getDataFromForm

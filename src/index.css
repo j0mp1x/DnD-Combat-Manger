@@ -36,7 +36,7 @@ h1 {
 }
 
 #addFighters {
-    /* width: 250px; */
+    width: 400px;
     padding: 20px;
 
     background: #16161e;
@@ -47,6 +47,13 @@ h1 {
 #addFighters h1 {
     margin: 0;
     font-size: 20px;
+}
+
+#addFighters h2 {
+    margin: 0;
+    padding-top: 10px;
+    font-size: 18px;
+    justify-self: center;
 }
 
 #initiativePanel {
@@ -238,18 +245,15 @@ button:hover {
 .formActions {
     display: flex;
 }
-
-.modalContent {
-    width: 400px;
-    padding: 30px;
-
-    background: #16161e;
-    border: 1px solid #292632;
-    border-radius: 12px;
-
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
-
+.actions button {
+    width: 40%;
+    margin: 10px;
+}
 .modalContent h2 {
     margin: 0 0 25px;
     text-align: center;
@@ -428,6 +432,7 @@ button:hover {
 
 .presetActions {
     display: flex;
+    justify-content: center;
     gap: 8px;
     padding-top: 10px;
 }

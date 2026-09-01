@@ -10,6 +10,10 @@ class Preset {
     }
 }
 
+const createPreset = ({ name, hp, armorClass, maxActions }) => {
+    return new Preset(name, hp, armorClass, maxActions)
+}
+
 const Yoshioka = new Preset('Ёшиока', 40, 14, 1)
 
-export { Preset, Yoshioka }
+export { Preset, Yoshioka, createPreset }
