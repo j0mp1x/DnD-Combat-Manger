@@ -237,6 +237,7 @@ function App() {
                                 setFormModal({
                                     isOpen: true,
                                     onSubmit: addPreset,
+                                    value: null,
                                 })
                             }}
                         >
@@ -289,25 +290,33 @@ function App() {
                 </div>
             </div>
 
-            <FormModal
-                isOpen={formModal.isOpen}
-                onSubmit={formModal.onSubmit}
-                getData={getDataFromForm}
-                value={formModal.value}
-                onClose={() => {
-                    setFormModal({ isOpen: false, onSubmit: null, value: null })
-                }}
-            />
-            <ConfirmModal
-                isOpen={confirmModal.isOpen}
-                onConfirm={confirmModal.onConfirm}
-                onClose={() => {
-                    setConfirmModal({
-                        isOpen: false,
-                        onConfirm: null,
-                    })
-                }}
-            />
+            {formModal.isOpen && (
+                <FormModal
+                    isOpen={formModal.isOpen}
+                    onSubmit={formModal.onSubmit}
+                    getData={getDataFromForm}
+                    value={formModal.value}
+                    onClose={() => {
+                        setFormModal({
+                            isOpen: false,
+                            onSubmit: null,
+                            value: null,
+                        })
+                    }}
+                />
+            )}
+            {confirmModal.isOpen && (
+                <ConfirmModal
+                    isOpen={confirmModal.isOpen}
+                    onConfirm={confirmModal.onConfirm}
+                    onClose={() => {
+                        setConfirmModal({
+                            isOpen: false,
+                            onConfirm: null,
+                        })
+                    }}
+                />
+            )}
         </div>
     )
 }

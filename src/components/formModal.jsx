@@ -5,7 +5,6 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
         onClose()
     }
 
-    console.log(value)
     return (
         <div className={`modal ${isOpen ? '' : 'hidden'}`}>
             <div className="modalContent">
@@ -13,60 +12,78 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                 <form action={handleSubmit}>
                     <div>
                         <div className="formFields">
-                            <label>Имя</label>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Имя"
-                                defaultValue={value ? value.name : ''}
-                            />
+                            <label>
+                                Имя
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Имя"
+                                    defaultValue={value ? value.name : ''}
+                                />
+                            </label>
                         </div>
                         <div className="formFields">
-                            <label>Здоровье</label>
-                            <input
-                                type="number"
-                                name="hp"
-                                placeholder="Здоровье"
-                                min={1}
-                                defaultValue={value ? value.maxHp : ''}
-                            />
+                            <label>
+                                Здоровье
+                                <input
+                                    type="number"
+                                    name="maxHp"
+                                    placeholder="Здоровье"
+                                    min={1}
+                                    defaultValue={value ? value.maxHp : ''}
+                                />
+                            </label>
                         </div>
                         <div className="formFields">
-                            <label>Количество действий</label>
-                            <input
-                                type="number"
-                                name="maxActions"
-                                placeholder="Количество действий"
-                                min={1}
-                                defaultValue={value ? value.maxActions : ''}
-                            />
+                            <label>
+                                Количество действий
+                                <input
+                                    type="number"
+                                    name="maxActions"
+                                    placeholder="Количество действий"
+                                    min={1}
+                                    defaultValue={value ? value.maxActions : ''}
+                                />
+                            </label>
                         </div>
                         <div className="formFields">
-                            <label>Класс защиты</label>
-                            <input
-                                type="number"
-                                name="armorClass"
-                                placeholder="Класс защиты"
-                                min={1}
-                                defaultValue={value ? value.armorClass : ''}
-                            />
+                            <label>
+                                Класс защиты
+                                <input
+                                    type="number"
+                                    name="armorClass"
+                                    placeholder="Класс защиты"
+                                    min={1}
+                                    defaultValue={value ? value.armorClass : ''}
+                                />
+                            </label>
                         </div>
-                        <div className="formFields">
-                            <label>Инициатива</label>
-                            <input
-                                type="number"
-                                name="initiative"
-                                placeholder="Заполняй если кидал кубик ирл"
-                                min={1}
-                                max={20}
-                                defaultValue={value ? value.initiative : ''}
-                            />
-                        </div>
+                        {!value && (
+                            <div className="formFields">
+                                <label>
+                                    Инициатива
+                                    <input
+                                        type="number"
+                                        name="initiative"
+                                        placeholder="Заполняй если кидал кубик ирл"
+                                        min={1}
+                                        max={20}
+                                    />
+                                </label>
+                            </div>
+                        )}
 
-                        <div className="formFields checkboxField">
-                            <label>Сохранить как пресет</label>
-                            <input type="checkbox" name="saveAsPreset" />
-                        </div>
+                        {!value && (
+                            <div className="formFields checkboxField">
+                                <label>
+                                    Сохранить как пресет
+                                    <input
+                                        type="checkbox"
+                                        name="saveAsPreset"
+                                    />
+                                </label>
+                            </div>
+                        )}
                     </div>
                     <div className="formActions">
                         <button>Добавить</button>

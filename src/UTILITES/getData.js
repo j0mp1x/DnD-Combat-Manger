@@ -1,6 +1,6 @@
 const getDataFromForm = (data) => {
     const name = data.get('name')
-    const maxHp = data.get('hp')
+    const maxHp = data.get('maxHp')
     const maxActions = data.get('maxActions')
     const armorClass = data.get('armorClass')
     const initiative = data.get('initiative')
