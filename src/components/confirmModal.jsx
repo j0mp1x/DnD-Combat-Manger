@@ -3,7 +3,7 @@ const ConfirmModal = ({ isOpen, onConfirm, onClose }) => {
         <div>
             <div className={`modal ${isOpen ? '' : 'hidden'}`}>
                 <div className="modalContent">
-                    <h1>Вы уверены что хотите удалить пресет?</h1>
+                    <h1>Вы уверены что хотите сделать это?</h1>
                     <div className="formActions">
                         <button
                             onClick={() => {

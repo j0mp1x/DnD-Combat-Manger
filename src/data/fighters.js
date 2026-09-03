@@ -19,9 +19,6 @@ const createFighter = (prev, data, initiative) => {
     if (initiative <= 0) {
         initiative = rollDice()
     }
-    if (data.maxActions <= 0) {
-        data.maxActions = 1
-    }
     return [...prev.fighters, new Fighter(data, initiative)]
 }
 

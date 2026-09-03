@@ -13,10 +13,10 @@ class Preset {
         int,
         wis,
         cha,
-    } = data) {
+    }) {
         this.id = id
         this.name = name
-        this.maxActions = Number(maxActions)
+        this.maxActions = Number(maxActions) > 0 ? Number(maxActions) : 1
         this.maxHp = Number(maxHp)
         this.armorClass = Number(armorClass)
         this.str = Number(str)

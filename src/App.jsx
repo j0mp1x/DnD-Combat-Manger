@@ -18,7 +18,10 @@ function App() {
 
     const [actionError, setActionError] = useState(false)
 
-    const [confirmModal, setConfirmModal] = useState(false)
+    const [confirmModal, setConfirmModal] = useState({
+        isOpen: false,
+        onConfirm: null,
+    })
 
     const [formModal, setFormModal] = useState({
         isOpen: false,
@@ -122,6 +125,39 @@ function App() {
         }
     }
 
+    const deleteFighter = (fighter) => {
+        setPrevGameState(gameState)
+        setGameState((prev) => {
+            return {
+                ...prev,
+                fighters: prev.fighters
+                    .filter((e) => e.id !== fighter.id)
+                    .sort((a, b) => b.initiative - a.initiative),
+            }
+        })
+    }
+
+    const editFighter = (data, fighter) => {
+        setPrevGameState(gameState)
+        setGameState((prev) => {
+            return {
+                ...prev,
+                fighters: prev.fighters.map((e) => {
+                    if (e.id === fighter.id) {
+                        return {
+                            ...data,
+                            id: fighter.id,
+                            reaction: fighter.reaction,
+                            action: fighter.action,
+                            initiative: fighter.initiative,
+                            hp: data.maxHp,
+                        }
+                    }
+                }),
+            }
+        })
+    }
+
     const addPreset = (data) => {
         setPresets((prev) => {
             return [...prev, createPreset(data)]
@@ -170,9 +206,36 @@ function App() {
                                         }`}
                                         key={f.id}
                                     >
-                                        <p>
-                                            {f.initiative}. {f.name}
-                                        </p>
+                                        <div>
+                                            <p>
+                                                {f.initiative}. {f.name}
+                                            </p>
+                                        </div>
+                                        <div className="fighterActions">
+                                            <button
+                                                onClick={() => {
+                                                    setFormModal({
+                                                        isOpen: true,
+                                                        onSubmit: editFighter,
+                                                        value: { ...f },
+                                                    })
+                                                }}
+                                            >
+                                                ✎
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    setConfirmModal({
+                                                        isOpen: true,
+                                                        onConfirm: () => {
+                                                            deleteFighter(f)
+                                                        },
+                                                    })
+                                                }}
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
                                         <div className="combatStats">
                                             <p>
                                                 ХП: {f.hp}/{f.maxHp}
