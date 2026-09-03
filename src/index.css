@@ -122,6 +122,36 @@ h1 {
         transform 0.2s ease;
 }
 
+.fighter > p {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.stateBlock {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px 10px;
+    margin-bottom: 10px;
+}
+
+.stateBlock p {
+    margin: 0;
+    font-size: 13px;
+}
+
+.fighter > div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.fighter > div:last-child p {
+    margin: 0;
+    font-size: 13px;
+}
+
 .currentFighter {
     border-color: #9b59ff;
     box-shadow: 0 0 10px rgba(155, 89, 255, 0.35), inset 3px 0 0 #9b59ff;
@@ -314,6 +344,22 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+.stateBlockForm {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px 10px;
+    margin-bottom: 20px;
+}
+.stateBlockForm input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+.stateBlockForm input[type='number']::-webkit-inner-spin-button,
+.stateBlockForm input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+
+    margin: 0;
 }
 
 .formFields.checkboxField {

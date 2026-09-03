@@ -1,18 +1,17 @@
 const getDataFromForm = (data) => {
-    const name = data.get('name')
-    const maxHp = data.get('maxHp')
-    const maxActions = data.get('maxActions')
-    const armorClass = data.get('armorClass')
-    const initiative = data.get('initiative')
-    const saveAsPreset = data.get('saveAsPreset')
-
     return {
-        name,
-        maxHp,
-        maxActions,
-        armorClass,
-        initiative,
-        saveAsPreset,
+        name: data.get('name'),
+        maxHp: data.get('maxHp'),
+        maxActions: data.get('maxActions'),
+        armorClass: data.get('armorClass'),
+        initiative: data.get('initiative'),
+        saveAsPreset: data.get('saveAsPreset'),
+        str: data.get('str'),
+        dex: data.get('dex'),
+        con: data.get('con'),
+        int: data.get('int'),
+        wis: data.get('wis'),
+        cha: data.get('cha'),
     }
 }
 export default getDataFromForm

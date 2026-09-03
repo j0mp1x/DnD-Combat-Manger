@@ -173,19 +173,35 @@ function App() {
                                         <p>
                                             {f.initiative}. {f.name}
                                         </p>
-                                        <p>Действие: {f.action}</p>
-                                        <button
-                                            className={
-                                                f.reaction
-                                                    ? 'reactionReady'
-                                                    : 'reactionUsed'
-                                            }
-                                            onClick={() => {
-                                                onReactionUse(f)
-                                            }}
-                                        >
-                                            Реакция
-                                        </button>
+                                        <div className="combatStats">
+                                            <p>
+                                                ХП: {f.hp}/{f.maxHp}
+                                            </p>
+                                            <p>КБ: {f.armorClass}</p>
+                                        </div>
+                                        <div className="stateBlock">
+                                            <p>СИЛ: {f.str}</p>
+                                            <p>ЛОВ: {f.dex}</p>
+                                            <p>ВЫН: {f.con}</p>
+                                            <p>ИНТ: {f.int}</p>
+                                            <p>МУД: {f.wis}</p>
+                                            <p>ХАР: {f.cha}</p>
+                                        </div>
+                                        <div>
+                                            <p>Действие: {f.action}</p>
+                                            <button
+                                                className={
+                                                    f.reaction
+                                                        ? 'reactionReady'
+                                                        : 'reactionUsed'
+                                                }
+                                                onClick={() => {
+                                                    onReactionUse(f)
+                                                }}
+                                            >
+                                                Реакция
+                                            </button>
+                                        </div>
                                     </div>
                                 )
                             })}

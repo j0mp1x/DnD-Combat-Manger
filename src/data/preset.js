@@ -1,19 +1,47 @@
 import { createNewId } from '../UTILITES/idCreator'
 
 class Preset {
-    constructor(name, hp, armorClass, maxActions = 1, id = createNewId()) {
+    constructor({
+        name,
+        maxHp,
+        armorClass,
+        maxActions = 1,
+        id = createNewId(),
+        str,
+        dex,
+        con,
+        int,
+        wis,
+        cha,
+    } = data) {
         this.id = id
         this.name = name
         this.maxActions = Number(maxActions)
-        this.maxHp = Number(hp)
-        this.armorClass = armorClass
+        this.maxHp = Number(maxHp)
+        this.armorClass = Number(armorClass)
+        this.str = Number(str)
+        this.dex = Number(dex)
+        this.con = Number(con)
+        this.int = Number(int)
+        this.wis = Number(wis)
+        this.cha = Number(cha)
     }
 }
 
-const createPreset = ({ name, hp, armorClass, maxActions }) => {
-    return new Preset(name, hp, armorClass, maxActions)
+const createPreset = (data) => {
+    return new Preset(data)
 }
 
-const Yoshioka = new Preset('Ёшиока', 40, 14, 1)
+const Yoshioka = new Preset({
+    name: 'Ёшиока',
+    maxHp: 40,
+    armorClass: 14,
+    str: 14,
+    dex: 14,
+    con: 14,
+    int: 14,
+    wis: 14,
+    cha: 14,
+})
 
 export { Preset, Yoshioka, createPreset }

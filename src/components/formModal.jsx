@@ -58,6 +58,68 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 />
                             </label>
                         </div>
+                        <div className="stateBlockForm">
+                            <label>
+                                Сила
+                                <input
+                                    type="number"
+                                    name="str"
+                                    placeholder=""
+                                    min={1}
+                                    max={20}
+                                />
+                            </label>
+                            <label>
+                                Ловкость
+                                <input
+                                    type="number"
+                                    name="dex"
+                                    placeholder=""
+                                    min={1}
+                                    max={20}
+                                />
+                            </label>
+                            <label>
+                                Телосложение
+                                <input
+                                    type="number"
+                                    name="con"
+                                    placeholder=""
+                                    min={1}
+                                    max={20}
+                                />
+                            </label>
+                            <label>
+                                Интелект
+                                <input
+                                    type="number"
+                                    name="int"
+                                    placeholder=""
+                                    min={1}
+                                    max={20}
+                                />
+                            </label>
+                            <label>
+                                Мудрость
+                                <input
+                                    type="number"
+                                    name="wis"
+                                    placeholder=""
+                                    min={1}
+                                    max={20}
+                                />
+                            </label>
+                            <label>
+                                Харизма
+                                <input
+                                    type="number"
+                                    name="cha"
+                                    placeholder=""
+                                    min={1}
+                                    max={20}
+                                />
+                            </label>
+                        </div>
                         {!value && (
                             <div className="formFields">
                                 <label>
