@@ -1,8 +1,8 @@
 import { createNewId } from '../UTILITES/idCreator'
 
 class Preset {
-    constructor(name, hp, armorClass, maxActions = 1) {
-        this.id = createNewId()
+    constructor(name, hp, armorClass, maxActions = 1, id = createNewId()) {
+        this.id = id
         this.name = name
         this.maxActions = Number(maxActions)
         this.maxHp = Number(hp)

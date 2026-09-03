@@ -1,9 +1,11 @@
-const FormModal = ({ isOpen, onSubmit, onClose, getData }) => {
+const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
     const handleSubmit = async (d) => {
         const data = await getData(d)
-        await onSubmit(data)
+        await onSubmit(data, value ? value : '')
         onClose()
     }
+
+    console.log(value)
     return (
         <div className={`modal ${isOpen ? '' : 'hidden'}`}>
             <div className="modalContent">
@@ -12,7 +14,12 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData }) => {
                     <div>
                         <div className="formFields">
                             <label>Имя</label>
-                            <input type="text" name="name" placeholder="Имя" />
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Имя"
+                                defaultValue={value ? value.name : ''}
+                            />
                         </div>
                         <div className="formFields">
                             <label>Здоровье</label>
@@ -21,6 +28,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData }) => {
                                 name="hp"
                                 placeholder="Здоровье"
                                 min={1}
+                                defaultValue={value ? value.maxHp : ''}
                             />
                         </div>
                         <div className="formFields">
@@ -30,6 +38,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData }) => {
                                 name="maxActions"
                                 placeholder="Количество действий"
                                 min={1}
+                                defaultValue={value ? value.maxActions : ''}
                             />
                         </div>
                         <div className="formFields">
@@ -39,6 +48,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData }) => {
                                 name="armorClass"
                                 placeholder="Класс защиты"
                                 min={1}
+                                defaultValue={value ? value.armorClass : ''}
                             />
                         </div>
                         <div className="formFields">
@@ -49,6 +59,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData }) => {
                                 placeholder="Заполняй если кидал кубик ирл"
                                 min={1}
                                 max={20}
+                                defaultValue={value ? value.initiative : ''}
                             />
                         </div>
 

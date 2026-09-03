@@ -23,6 +23,7 @@ function App() {
     const [formModal, setFormModal] = useState({
         isOpen: false,
         onSubmit: null,
+        value: null,
     })
 
     const onReactionUse = (f) => {
@@ -133,6 +134,16 @@ function App() {
         })
     }
 
+    const editPreset = (data, preset) => {
+        setPresets((prev) => {
+            return prev.map((e) => {
+                if (e.id === preset.id) {
+                    return { ...data, id: preset.id }
+                } else return e
+            })
+        })
+    }
+
     const backUp = () => {
         prevGameState ? setGameState(prevGameState) : null
         setPrevGameState(null)
@@ -215,6 +226,7 @@ function App() {
                                 setFormModal({
                                     isOpen: true,
                                     onSubmit: addFighter,
+                                    value: null,
                                 })
                             }}
                         >
@@ -245,7 +257,17 @@ function App() {
                                         >
                                             Добавить
                                         </button>
-                                        <button>Редактировать</button>
+                                        <button
+                                            onClick={() => {
+                                                setFormModal({
+                                                    isOpen: true,
+                                                    onSubmit: editPreset,
+                                                    value: { ...e },
+                                                })
+                                            }}
+                                        >
+                                            Редактировать
+                                        </button>
                                         <button
                                             onClick={() => {
                                                 setConfirmModal({
@@ -253,6 +275,7 @@ function App() {
                                                     onConfirm: () => {
                                                         deletePreset(e)
                                                     },
+                                                    value: null,
                                                 })
                                             }}
                                         >
@@ -270,9 +293,9 @@ function App() {
                 isOpen={formModal.isOpen}
                 onSubmit={formModal.onSubmit}
                 getData={getDataFromForm}
+                value={formModal.value}
                 onClose={() => {
-                    setFormModal(false)
-                    setFormModal({ isOpen: false, onSubmit: null })
+                    setFormModal({ isOpen: false, onSubmit: null, value: null })
                 }}
             />
             <ConfirmModal
