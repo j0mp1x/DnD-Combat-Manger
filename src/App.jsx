@@ -12,7 +12,7 @@ function App() {
         currentFighter: 0,
     })
 
-    const [prevGameState, setPrevGameState] = useState(null)
+    const [prevGameState, setPrevGameState] = useState([{}])
 
     const [presets, setPresets] = useState([Yoshioka])
 
@@ -30,7 +30,9 @@ function App() {
     })
 
     const onReactionUse = (f) => {
-        setPrevGameState(gameState)
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
         setGameState((prev) => {
             return {
                 ...prev,
@@ -45,7 +47,9 @@ function App() {
     }
 
     const onEndTurn = () => {
-        setPrevGameState(gameState)
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
         setGameState((prev) => {
             if (prev.currentFighter + 1 === prev.fighters.length) {
                 return {
@@ -73,7 +77,9 @@ function App() {
         if (!actionError) {
             if (gameState.fighters.length != 0) {
                 if (gameState.fighters[gameState.currentFighter].action > 0) {
-                    setPrevGameState(gameState)
+                    setPrevGameState((prev) => {
+                        return [...prev, gameState]
+                    })
                     setGameState((prev) => {
                         return {
                             ...prev,
@@ -110,7 +116,9 @@ function App() {
     }
 
     const addFighter = (data) => {
-        setPrevGameState(gameState)
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
         setGameState((prev) => {
             return {
                 ...prev,
@@ -126,7 +134,9 @@ function App() {
     }
 
     const deleteFighter = (fighter) => {
-        setPrevGameState(gameState)
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
         setGameState((prev) => {
             return {
                 ...prev,
@@ -138,7 +148,9 @@ function App() {
     }
 
     const editFighter = (data, fighter) => {
-        setPrevGameState(gameState)
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
         setGameState((prev) => {
             return {
                 ...prev,
@@ -152,7 +164,7 @@ function App() {
                             initiative: fighter.initiative,
                             hp: data.maxHp,
                         }
-                    }
+                    } else return e
                 }),
             }
         })
@@ -181,8 +193,14 @@ function App() {
     }
 
     const backUp = () => {
-        prevGameState ? setGameState(prevGameState) : null
-        setPrevGameState(null)
+        if (prevGameState.length > 1) {
+            setGameState((prev) => {
+                return { ...prevGameState[prevGameState.length - 1] }
+            })
+            setPrevGameState((prev) => {
+                return [...prev].slice(0, -1)
+            })
+        }
     }
 
     return (

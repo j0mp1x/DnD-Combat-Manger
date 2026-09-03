@@ -67,6 +67,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                     placeholder=""
                                     min={1}
                                     max={20}
+                                    defaultValue={value ? value.str : ''}
                                 />
                             </label>
                             <label>
@@ -77,6 +78,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                     placeholder=""
                                     min={1}
                                     max={20}
+                                    defaultValue={value ? value.dex : ''}
                                 />
                             </label>
                             <label>
@@ -87,6 +89,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                     placeholder=""
                                     min={1}
                                     max={20}
+                                    defaultValue={value ? value.con : ''}
                                 />
                             </label>
                             <label>
@@ -97,6 +100,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                     placeholder=""
                                     min={1}
                                     max={20}
+                                    defaultValue={value ? value.int : ''}
                                 />
                             </label>
                             <label>
@@ -107,6 +111,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                     placeholder=""
                                     min={1}
                                     max={20}
+                                    defaultValue={value ? value.wis : ''}
                                 />
                             </label>
                             <label>
@@ -117,6 +122,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                     placeholder=""
                                     min={1}
                                     max={20}
+                                    defaultValue={value ? value.cha : ''}
                                 />
                             </label>
                         </div>
