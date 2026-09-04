@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createFighter, fighters } from './data/fighters'
 import { Preset, Yoshioka, createPreset } from './data/preset'
 import ConfirmModal from './components/confirmModal'
@@ -8,13 +8,12 @@ import getDataFromForm from './UTILITES/getData'
 function App() {
     const [gameState, setGameState] = useState({
         fighters: fighters.sort((a, b) => b.initiative - a.initiative),
+        presets: [Yoshioka],
         round: 1,
         currentFighter: 0,
     })
 
     const [prevGameState, setPrevGameState] = useState([{}])
-
-    const [presets, setPresets] = useState([Yoshioka])
 
     const [actionError, setActionError] = useState(false)
 
@@ -28,6 +27,35 @@ function App() {
         onSubmit: null,
         value: null,
     })
+
+    const saveToLocalStorage = () => {
+        if (prevGameState.length > 1) {
+            localStorage.setItem('gameState', JSON.stringify(gameState))
+        }
+    }
+
+    const loadFromLocalStorage = () => {
+        let storedGameState = localStorage.getItem('gameState')
+        if (storedGameState) {
+            storedGameState = JSON.parse(storedGameState)
+            console.log(storedGameState)
+            try {
+                setGameState((prev) => {
+                    return { ...prev, ...storedGameState }
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    useEffect(() => {
+        loadFromLocalStorage()
+    }, [])
+
+    useEffect(() => {
+        saveToLocalStorage()
+    }, [gameState])
 
     const onReactionUse = (f) => {
         setPrevGameState((prev) => {
@@ -171,24 +199,30 @@ function App() {
     }
 
     const addPreset = (data) => {
-        setPresets((prev) => {
-            return [...prev, createPreset(data)]
+        setGameState((prev) => {
+            return { ...prev, presets: [...prev.presets, createPreset(data)] }
         })
     }
 
     const deletePreset = (preset) => {
-        setPresets((prev) => {
-            return [...prev].filter((e) => e.id !== preset.id)
+        setGameState((prev) => {
+            return {
+                ...prev,
+                presets: [...prev.presets].filter((e) => e.id !== preset.id),
+            }
         })
     }
 
     const editPreset = (data, preset) => {
-        setPresets((prev) => {
-            return prev.map((e) => {
-                if (e.id === preset.id) {
-                    return { ...data, id: preset.id }
-                } else return e
-            })
+        setGameState((prev) => {
+            return {
+                ...prev,
+                presets: prev.presets.map((e) => {
+                    if (e.id === preset.id) {
+                        return { ...data, id: preset.id }
+                    } else return e
+                }),
+            }
         })
     }
 
@@ -343,7 +377,7 @@ function App() {
                     </div>
                     <h2>Пресеты</h2>
                     <div id="presets">
-                        {presets.map((e) => {
+                        {gameState.presets.map((e) => {
                             return (
                                 <div className="preset" key={e.id}>
                                     <h1>{e.name}</h1>
