@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { createFighter, fighters } from './data/fighters'
 import { Preset, Yoshioka, createPreset } from './data/preset'
 import ConfirmModal from './components/confirmModal'
 import FormModal from './components/formModal'
 import getDataFromForm from './UTILITES/getData'
+import { currentId, setCurrentId } from './UTILITES/idCreator'
 
 function App() {
     const [gameState, setGameState] = useState({
@@ -28,10 +29,11 @@ function App() {
         value: null,
     })
 
+    const isFirstRender = useRef(true)
+
     const saveToLocalStorage = () => {
-        if (prevGameState.length > 1) {
-            localStorage.setItem('gameState', JSON.stringify(gameState))
-        }
+        localStorage.setItem('gameState', JSON.stringify(gameState))
+        localStorage.setItem('currentId', JSON.stringify(currentId))
     }
 
     const loadFromLocalStorage = () => {
@@ -41,11 +43,16 @@ function App() {
             console.log(storedGameState)
             try {
                 setGameState((prev) => {
-                    return { ...prev, ...storedGameState }
+                    return { ...storedGameState }
                 })
             } catch (error) {
                 console.log(error)
             }
+        }
+        let storedCurrentId = localStorage.getItem('currentId')
+        if (storedCurrentId) {
+            storedCurrentId = Number(JSON.parse(storedCurrentId))
+            setCurrentId(storedCurrentId)
         }
     }
 
@@ -54,6 +61,10 @@ function App() {
     }, [])
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false
+            return
+        }
         saveToLocalStorage()
     }, [gameState])
 

@@ -5,4 +5,8 @@ const createNewId = () => {
     return currentId
 }
 
-export { createNewId }
+const setCurrentId = (id) => {
+    currentId = id
+}
+
+export { createNewId, setCurrentId, currentId }
