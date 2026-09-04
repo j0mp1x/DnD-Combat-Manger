@@ -21,6 +21,7 @@ function App() {
     const [confirmModal, setConfirmModal] = useState({
         isOpen: false,
         onConfirm: null,
+        message: 'Вы уверены что хотите сделать это?',
     })
 
     const [formModal, setFormModal] = useState({
@@ -40,7 +41,6 @@ function App() {
         let storedGameState = localStorage.getItem('gameState')
         if (storedGameState) {
             storedGameState = JSON.parse(storedGameState)
-            console.log(storedGameState)
             try {
                 setGameState((prev) => {
                     return { ...storedGameState }
@@ -66,7 +66,7 @@ function App() {
             return
         }
         saveToLocalStorage()
-    }, [gameState])
+    }, [gameState, currentId])
 
     const onReactionUse = (f) => {
         setPrevGameState((prev) => {
@@ -86,29 +86,53 @@ function App() {
     }
 
     const onEndTurn = () => {
-        setPrevGameState((prev) => {
-            return [...prev, gameState]
-        })
+        if (gameState.fighters.length !== 0) {
+            setPrevGameState((prev) => {
+                return [...prev, gameState]
+            })
+            setGameState((prev) => {
+                if (prev.currentFighter + 1 === prev.fighters.length) {
+                    return {
+                        ...prev,
+                        currentFighter: 0,
+                        round: prev.round + 1,
+                        fighters: prev.fighters.map((e) => {
+                            return {
+                                ...e,
+                                reaction: true,
+                                action: e.maxActions,
+                            }
+                        }),
+                    }
+                } else {
+                    return {
+                        ...prev,
+                        currentFighter: prev.currentFighter + 1,
+                    }
+                }
+            })
+        }
+    }
+
+    const onEndCombat = () => {
         setGameState((prev) => {
-            if (prev.currentFighter + 1 === prev.fighters.length) {
-                return {
-                    ...prev,
-                    currentFighter: 0,
-                    round: prev.round + 1,
-                    fighters: prev.fighters.map((e) => {
-                        return {
-                            ...e,
-                            reaction: true,
-                            action: e.maxActions,
-                        }
-                    }),
-                }
-            } else {
-                return {
-                    ...prev,
-                    currentFighter: prev.currentFighter + 1,
-                }
+            return {
+                ...prev,
+                currentFighter: 0,
+                round: 1,
+                fighters: prev.fighters.map((e) => {
+                    return {
+                        ...e,
+                        reaction: true,
+                        action: e.maxActions,
+                    }
+                }),
             }
+        })
+        setConfirmModal({
+            isOpen: true,
+            onConfirm: deleteAllFighters,
+            message: 'Удалить всех бойцов?',
         })
     }
 
@@ -182,6 +206,18 @@ function App() {
                 fighters: prev.fighters
                     .filter((e) => e.id !== fighter.id)
                     .sort((a, b) => b.initiative - a.initiative),
+            }
+        })
+    }
+
+    const deleteAllFighters = () => {
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+        setGameState((prev) => {
+            return {
+                ...prev,
+                fighters: [],
             }
         })
     }
@@ -293,6 +329,8 @@ function App() {
                                                         onConfirm: () => {
                                                             deleteFighter(f)
                                                         },
+                                                        message:
+                                                            'Вы уверены, что хотите удалить бойца?',
                                                     })
                                                 }}
                                             >
@@ -357,6 +395,7 @@ function App() {
                             >
                                 Закончить ход
                             </button>
+                            <button onClick={onEndCombat}>Закончить бой</button>
                         </div>
                     </div>
                 </div>
@@ -418,7 +457,8 @@ function App() {
                                                     onConfirm: () => {
                                                         deletePreset(e)
                                                     },
-                                                    value: null,
+                                                    message:
+                                                        'Вы уверены, что хотите удалить пресет?',
                                                 })
                                             }}
                                         >
@@ -451,10 +491,12 @@ function App() {
                 <ConfirmModal
                     isOpen={confirmModal.isOpen}
                     onConfirm={confirmModal.onConfirm}
+                    message={confirmModal.message}
                     onClose={() => {
                         setConfirmModal({
                             isOpen: false,
                             onConfirm: null,
+                            message: 'Вы уверены что хотите сделать это?',
                         })
                     }}
                 />
