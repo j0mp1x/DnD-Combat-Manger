@@ -19,8 +19,8 @@ const createFighter = (data) => {
         data.initiative = rollDice()
     }
     const fighter = new Fighter(data, data.initiative)
+    fighter.setMaxHp()
     fighter.setParametrs()
-    console.log(fighter)
     return fighter
 }
 
@@ -28,8 +28,8 @@ const updateFighter = (data, fighter) => {
     const newFighter = new Fighter(data)
     newFighter.id = fighter.id
     newFighter.initiative = fighter.initiative
+    newFighter.setMaxHp()
     newFighter.setParametrs()
-    console.log('is new ', newFighter)
     return newFighter
 }
 

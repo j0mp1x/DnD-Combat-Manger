@@ -44,7 +44,9 @@ class Preset {
         for (let i = this.level - 1; i > 0; i--) {
             totalAddedHp += this.dndClass.hpPerLevel + this.getMod(this.con)
         }
-        return this.dndClass.firstLvlHp + this.getMod(this.con) + totalAddedHp
+        this.maxHp =
+            this.dndClass.firstLvlHp + this.getMod(this.con) + totalAddedHp
+        this.hp = this.maxHp
     }
 
     setParametrs() {
@@ -58,8 +60,17 @@ class Preset {
 
 const createPreset = (data) => {
     const preset = new Preset(data)
+    preset.setMaxHp()
     preset.setParametrs()
     return preset
+}
+
+const updatePreset = (data, preset) => {
+    const newPreset = new Preset(data)
+    newPreset.id = preset.id
+    newPreset.setMaxHp()
+    newPreset.setParametrs()
+    return newPreset
 }
 
 const defaultPresets = [
@@ -109,4 +120,4 @@ const defaultPresets = [
     }),
 ]
 
-export { Preset, defaultPresets, createPreset }
+export { Preset, defaultPresets, createPreset, updatePreset }
