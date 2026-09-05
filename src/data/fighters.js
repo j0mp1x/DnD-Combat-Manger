@@ -6,7 +6,7 @@ class Fighter extends Preset {
     constructor(data, initiative = rollDice()) {
         super(data)
         this.id = createNewId()
-        this.initiative = Number(initiative)
+        this.initiative = Number(initiative) + this.getMod(this.dex)
         this.reaction = true
         this.action = Number(this.maxActions)
     }
@@ -14,11 +14,11 @@ class Fighter extends Preset {
 
 let fighters = []
 
-const createFighter = (prev, data, initiative) => {
-    if (initiative <= 0) {
-        initiative = rollDice()
+const createFighter = (prev, data) => {
+    if (data.initiative <= 0) {
+        data.initiative = rollDice()
     }
-    const fighter = new Fighter(data, initiative)
+    const fighter = new Fighter(data, data.initiative)
     fighter.setParametrs()
     return [...prev.fighters, fighter]
 }

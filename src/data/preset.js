@@ -36,7 +36,7 @@ class Preset {
     }
 
     getMod(stat) {
-        return (stat - 10) / 2
+        return Math.floor((stat - 10) / 2)
     }
 
     setMaxHp() {
@@ -44,7 +44,7 @@ class Preset {
         for (let i = this.level - 1; i > 0; i--) {
             totalAddedHp += this.dndClass.hpPerLevel + this.getMod(this.con)
         }
-        return this.dndClass.firstLvlHp + totalAddedHp
+        return this.dndClass.firstLvlHp + this.getMod(this.con) + totalAddedHp
     }
 
     setParametrs() {
