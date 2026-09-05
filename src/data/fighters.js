@@ -20,7 +20,17 @@ const createFighter = (data) => {
     }
     const fighter = new Fighter(data, data.initiative)
     fighter.setParametrs()
+    console.log(fighter)
     return fighter
 }
 
-export { fighters, createFighter, Fighter }
+const updateFighter = (data, fighter) => {
+    const newFighter = new Fighter(data)
+    newFighter.id = fighter.id
+    newFighter.initiative = fighter.initiative
+    newFighter.setParametrs()
+    console.log('is new ', newFighter)
+    return newFighter
+}
+
+export { fighters, createFighter, updateFighter, Fighter }

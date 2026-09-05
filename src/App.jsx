@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { createFighter, fighters } from './data/fighters'
+import { createFighter, fighters, updateFighter } from './data/fighters'
 import { Preset, defaultPresets, createPreset } from './data/preset'
 import ConfirmModal from './components/confirmModal'
 import FormModal from './components/formModal'
@@ -43,7 +43,12 @@ function App() {
             storedGameState = JSON.parse(storedGameState)
             try {
                 setGameState((prev) => {
-                    return { ...storedGameState }
+                    return {
+                        ...storedGameState,
+                        fighters: storedGameState.fighters.map((e) => {
+                            updateFighter(e, e)
+                        }),
+                    }
                 })
             } catch (error) {
                 console.log(error)
@@ -223,7 +228,7 @@ function App() {
         })
     }
 
-    const editFighter = (data, fighter) => {
+    const editFighter = (fighter) => {
         setPrevGameState((prev) => {
             return [...prev, gameState]
         })
@@ -232,7 +237,7 @@ function App() {
                 ...prev,
                 fighters: prev.fighters.map((e) => {
                     if (e.id === fighter.id) {
-                        return createFighter(data)
+                        return updateFighter(data, fighter)
                     } else return e
                 }),
             }
