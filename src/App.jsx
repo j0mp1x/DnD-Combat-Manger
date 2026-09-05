@@ -61,6 +61,7 @@ function App() {
     }, [])
 
     useEffect(() => {
+        console.log(gameState)
         if (isFirstRender.current) {
             isFirstRender.current = false
             return
@@ -185,7 +186,7 @@ function App() {
         setGameState((prev) => {
             return {
                 ...prev,
-                fighters: createFighter(prev, data).sort(
+                fighters: [...prev.fighters, createFighter(data)].sort(
                     (a, b) => b.initiative - a.initiative
                 ),
             }
@@ -231,14 +232,7 @@ function App() {
                 ...prev,
                 fighters: prev.fighters.map((e) => {
                     if (e.id === fighter.id) {
-                        return {
-                            ...data,
-                            id: fighter.id,
-                            reaction: fighter.reaction,
-                            action: fighter.action,
-                            initiative: fighter.initiative,
-                            hp: data.maxHp,
-                        }
+                        return createFighter(data)
                     } else return e
                 }),
             }
@@ -266,7 +260,9 @@ function App() {
                 ...prev,
                 presets: prev.presets.map((e) => {
                     if (e.id === preset.id) {
-                        return { ...data, id: preset.id }
+                        const d = data
+                        d.id = preset.id
+                        return createPreset(data)
                     } else return e
                 }),
             }

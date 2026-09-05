@@ -14,13 +14,13 @@ class Fighter extends Preset {
 
 let fighters = []
 
-const createFighter = (prev, data) => {
+const createFighter = (data) => {
     if (data.initiative <= 0) {
         data.initiative = rollDice()
     }
     const fighter = new Fighter(data, data.initiative)
     fighter.setParametrs()
-    return [...prev.fighters, fighter]
+    return fighter
 }
 
 export { fighters, createFighter, Fighter }
