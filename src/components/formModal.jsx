@@ -1,3 +1,5 @@
+import { CLASS_LIST } from '../data/class'
+
 const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
     const handleSubmit = async (d) => {
         const data = await getData(d)
@@ -19,6 +21,33 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                     name="name"
                                     placeholder="Имя"
                                     defaultValue={value ? value.name : ''}
+                                />
+                            </label>
+                        </div>
+                        <div className="formFields">
+                            <label>
+                                Класс
+                                <select name="dndClassList">
+                                    <option value={CLASS_LIST.WARRIOR.name}>
+                                        {CLASS_LIST.WARRIOR.name}
+                                    </option>
+                                    <option value={CLASS_LIST.MONK.name}>
+                                        {CLASS_LIST.MONK.name}
+                                    </option>
+                                    <option value={CLASS_LIST.WARLOCK.name}>
+                                        {CLASS_LIST.WARLOCK.name}
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div className="formFields">
+                            <label>
+                                Уровень
+                                <input
+                                    type="text"
+                                    name="level"
+                                    placeholder="Уровень"
+                                    defaultValue={value ? value.level : ''}
                                 />
                             </label>
                         </div>
@@ -64,7 +93,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 <input
                                     type="number"
                                     name="str"
-                                    placeholder=""
+                                    placeholder="СИЛ"
                                     min={1}
                                     max={20}
                                     defaultValue={value ? value.str : ''}
@@ -75,7 +104,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 <input
                                     type="number"
                                     name="dex"
-                                    placeholder=""
+                                    placeholder="ЛОВ"
                                     min={1}
                                     max={20}
                                     defaultValue={value ? value.dex : ''}
@@ -86,7 +115,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 <input
                                     type="number"
                                     name="con"
-                                    placeholder=""
+                                    placeholder="ТЕЛ"
                                     min={1}
                                     max={20}
                                     defaultValue={value ? value.con : ''}
@@ -97,7 +126,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 <input
                                     type="number"
                                     name="int"
-                                    placeholder=""
+                                    placeholder="ИНТ"
                                     min={1}
                                     max={20}
                                     defaultValue={value ? value.int : ''}
@@ -108,7 +137,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 <input
                                     type="number"
                                     name="wis"
-                                    placeholder=""
+                                    placeholder="МДР"
                                     min={1}
                                     max={20}
                                     defaultValue={value ? value.wis : ''}
@@ -119,7 +148,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 <input
                                     type="number"
                                     name="cha"
-                                    placeholder=""
+                                    placeholder="ХАР"
                                     min={1}
                                     max={20}
                                     defaultValue={value ? value.cha : ''}
@@ -152,6 +181,12 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 </label>
                             </div>
                         )}
+                        <div className="formFields checkboxField">
+                            <label>
+                                Это игрок?
+                                <input type="checkbox" name="isPlayer" />
+                            </label>
+                        </div>
                     </div>
                     <div className="formActions">
                         <button>Добавить</button>

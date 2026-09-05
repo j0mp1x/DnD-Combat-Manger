@@ -307,7 +307,8 @@ function App() {
                                     >
                                         <div>
                                             <p>
-                                                {f.initiative}. {f.name}
+                                                {f.initiative}. {f.name}{' '}
+                                                {f.dndClass.name}
                                             </p>
                                         </div>
                                         <div className="fighterActions">

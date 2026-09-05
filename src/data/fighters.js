@@ -9,7 +9,6 @@ class Fighter extends Preset {
         this.initiative = Number(initiative)
         this.reaction = true
         this.action = Number(this.maxActions)
-        this.hp = Number(this.maxHp)
     }
 }
 
@@ -19,7 +18,9 @@ const createFighter = (prev, data, initiative) => {
     if (initiative <= 0) {
         initiative = rollDice()
     }
-    return [...prev.fighters, new Fighter(data, initiative)]
+    const fighter = new Fighter(data, initiative)
+    fighter.setParametrs()
+    return [...prev.fighters, fighter]
 }
 
 export { fighters, createFighter, Fighter }
