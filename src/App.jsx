@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { createFighter, fighters } from './data/fighters'
-import { Preset, Yoshioka, createPreset } from './data/preset'
+import { Preset, defaultPresets, createPreset } from './data/preset'
 import ConfirmModal from './components/confirmModal'
 import FormModal from './components/formModal'
 import getDataFromForm from './UTILITES/getData'
@@ -9,7 +9,7 @@ import { currentId, setCurrentId } from './UTILITES/idCreator'
 function App() {
     const [gameState, setGameState] = useState({
         fighters: fighters.sort((a, b) => b.initiative - a.initiative),
-        presets: [Yoshioka],
+        presets: [...defaultPresets],
         round: 1,
         currentFighter: 0,
     })

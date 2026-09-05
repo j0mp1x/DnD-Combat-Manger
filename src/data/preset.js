@@ -32,16 +32,42 @@ const createPreset = (data) => {
     return new Preset(data)
 }
 
-const Yoshioka = new Preset({
-    name: 'Ёшиока',
-    maxHp: 40,
-    armorClass: 14,
-    str: 14,
-    dex: 14,
-    con: 14,
-    int: 14,
-    wis: 14,
-    cha: 14,
-})
+const defaultPresets = [
+    new Preset({
+        name: 'Ёшиока',
+        maxHp: 40,
+        armorClass: 14,
+        str: 14,
+        dex: 14,
+        con: 14,
+        int: 14,
+        wis: 14,
+        cha: 14,
+    }),
 
-export { Preset, Yoshioka, createPreset }
+    new Preset({
+        name: 'Ринтаро',
+        maxHp: 40,
+        armorClass: 13,
+        str: 14,
+        dex: 14,
+        con: 14,
+        int: 14,
+        wis: 14,
+        cha: 14,
+    }),
+
+    new Preset({
+        name: 'Рэн',
+        maxHp: 40,
+        armorClass: 12,
+        str: 14,
+        dex: 14,
+        con: 14,
+        int: 14,
+        wis: 14,
+        cha: 14,
+    }),
+]
+
+export { Preset, defaultPresets, createPreset }
