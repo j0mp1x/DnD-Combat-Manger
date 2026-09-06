@@ -273,8 +273,6 @@ function App() {
                 ...prev,
                 presets: prev.presets.map((e) => {
                     if (e.id === preset.id) {
-                        const d = data
-                        d.id = preset.id
                         return updatePreset(data, preset)
                     } else return e
                 }),

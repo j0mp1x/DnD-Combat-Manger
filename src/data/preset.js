@@ -50,7 +50,10 @@ class Preset {
                 totalAddedHp += this.dndClass.hpPerLevel + this.getMod(this.con)
             }
             this.maxHp =
-                this.dndClass.firstLvlHp + this.getMod(this.con) + totalAddedHp
+                this.dndClass.firstLvlHp +
+                this.getMod(this.con) +
+                totalAddedHp +
+                12
             this.hp = this.maxHp
         }
     }
@@ -85,13 +88,12 @@ const defaultPresets = [
         isPlayer: 'on',
         dndClass: CLASS_LIST.WARRIOR,
         level: 3,
-        maxHp: 40,
         armorClass: 14,
-        str: 14,
-        dex: 14,
+        str: 12,
+        dex: 16,
         con: 14,
-        int: 14,
-        wis: 14,
+        int: 10,
+        wis: 12,
         cha: 14,
     }),
 
@@ -119,7 +121,7 @@ const defaultPresets = [
         armorClass: 12,
         str: 14,
         dex: 14,
-        con: 14,
+        con: 16,
         int: 14,
         wis: 14,
         cha: 14,
