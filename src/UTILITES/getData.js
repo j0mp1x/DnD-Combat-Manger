@@ -4,6 +4,8 @@ const getDataFromForm = (data) => {
     const selectedClass = Object.values(CLASS_LIST).find(
         (dndClass) => dndClass.name === data.get('dndClassList')
     )
+    // let isPlayer
+    // data.get('isPlayer') === 'true' ? (isPlayer = true) : (isPlayer = false)
     return {
         name: data.get('name'),
         dndClass: selectedClass,

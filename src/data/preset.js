@@ -40,20 +40,26 @@ class Preset {
     }
 
     setMaxHp() {
-        let totalAddedHp = 0
-        for (let i = this.level - 1; i > 0; i--) {
-            totalAddedHp += this.dndClass.hpPerLevel + this.getMod(this.con)
+        if (!this.isPlayer) {
+            this.hp = this.maxHp
+        } else if (this.isPlayer && this.maxHp) {
+            this.maxHp
+        } else {
+            let totalAddedHp = 0
+            for (let i = this.level - 1; i > 0; i--) {
+                totalAddedHp += this.dndClass.hpPerLevel + this.getMod(this.con)
+            }
+            this.maxHp =
+                this.dndClass.firstLvlHp + this.getMod(this.con) + totalAddedHp
+            this.hp = this.maxHp
         }
-        this.maxHp =
-            this.dndClass.firstLvlHp + this.getMod(this.con) + totalAddedHp
-        this.hp = this.maxHp
     }
 
     setParametrs() {
         this.armorClass = 10 + this.getMod(this.dex)
-        if (this.isPlayer) {
-            this.maxHp = this.setMaxHp()
-            this.hp = this.maxHp
+        if (this.isPlayer === 'on') {
+            this.setMaxHp()
+            console.log('lol')
         }
     }
 }
@@ -76,7 +82,7 @@ const updatePreset = (data, preset) => {
 const defaultPresets = [
     createPreset({
         name: 'Ёшиока',
-        isPlayer: true,
+        isPlayer: 'on',
         dndClass: CLASS_LIST.WARRIOR,
         level: 3,
         maxHp: 40,
@@ -91,7 +97,7 @@ const defaultPresets = [
 
     createPreset({
         name: 'Ринтаро',
-        isPlayer: true,
+        isPlayer: 'on',
         dndClass: CLASS_LIST.MONK,
         level: 3,
         maxHp: 40,
@@ -106,7 +112,7 @@ const defaultPresets = [
 
     createPreset({
         name: 'Рэн',
-        isPlayer: true,
+        isPlayer: 'on',
         dndClass: CLASS_LIST.WARLOCK,
         level: 3,
         maxHp: 40,

@@ -19,7 +19,6 @@ const createFighter = (data) => {
         data.initiative = rollDice()
     }
     const fighter = new Fighter(data, data.initiative)
-    fighter.setMaxHp()
     fighter.setParametrs()
     return fighter
 }
