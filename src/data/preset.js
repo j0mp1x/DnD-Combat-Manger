@@ -42,8 +42,6 @@ class Preset {
     setMaxHp() {
         if (!this.isPlayer) {
             this.hp = this.maxHp
-        } else if (this.isPlayer && this.maxHp) {
-            this.maxHp
         } else {
             let totalAddedHp = 0
             for (let i = this.level - 1; i > 0; i--) {

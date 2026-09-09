@@ -27,7 +27,12 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                         <div className="formFields">
                             <label>
                                 Класс
-                                <select name="dndClassList">
+                                <select
+                                    name="dndClassList"
+                                    defaultValue={
+                                        value ? value.dndClass.name : ''
+                                    }
+                                >
                                     <option value={CLASS_LIST.WARRIOR.name}>
                                         {CLASS_LIST.WARRIOR.name}
                                     </option>
@@ -184,7 +189,13 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                         <div className="formFields checkboxField">
                             <label>
                                 Это игрок?
-                                <input type="checkbox" name="isPlayer" />
+                                <input
+                                    type="checkbox"
+                                    name="isPlayer"
+                                    defaultChecked={
+                                        value ? value.isPlayer : false
+                                    }
+                                />
                             </label>
                         </div>
                     </div>
