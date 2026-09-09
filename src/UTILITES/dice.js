@@ -1,5 +1,5 @@
-const rollDice = () => {
-    return Math.floor(Math.random() * 20) + 1
+const rollDice = (quantity, d) => {
+    return Math.floor(Math.random() * d) + 1
 }
 
 export { rollDice }

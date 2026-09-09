@@ -3,7 +3,7 @@ import { createNewId } from '../UTILITES/idCreator'
 import { Preset } from './preset'
 
 class Fighter extends Preset {
-    constructor(data, initiative = rollDice()) {
+    constructor(data, initiative = rollDice(1, 20)) {
         super(data)
         this.id = createNewId()
         this.initiative = Number(initiative) + this.getMod(this.dex)
@@ -16,7 +16,7 @@ let fighters = []
 
 const createFighter = (data) => {
     if (data.initiative <= 0) {
-        data.initiative = rollDice()
+        data.initiative = rollDice(1, 20)
     }
     const fighter = new Fighter(data, data.initiative)
     fighter.setParametrs()
@@ -32,4 +32,12 @@ const updateFighter = (data, fighter) => {
     return newFighter
 }
 
-export { fighters, createFighter, updateFighter, Fighter }
+const battleUpdate = (fighter, damage) => {
+    const newFighter = new Fighter(fighter)
+    newFighter.id = fighter.id
+    newFighter.initiative = fighter.initiative
+    newFighter.hp = fighter.hp - damage
+    return newFighter
+}
+
+export { fighters, createFighter, updateFighter, battleUpdate, Fighter }

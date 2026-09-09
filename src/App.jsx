@@ -1,5 +1,10 @@
 import { useEffect, useState, useRef } from 'react'
-import { createFighter, fighters, updateFighter } from './data/fighters'
+import {
+    battleUpdate,
+    createFighter,
+    fighters,
+    updateFighter,
+} from './data/fighters'
 import {
     Preset,
     defaultPresets,
@@ -192,6 +197,15 @@ function App() {
         }
     }
 
+    const onAttack = () => {
+        let currentFighter = gameState.fighters[gameState.currentFighter]
+
+        battleUpdateFighter(
+            gameState.fighters[gameState.currentFighter + 1],
+            currentFighter.attack()
+        )
+    }
+
     const addFighter = (data) => {
         setPrevGameState((prev) => {
             return [...prev, gameState]
@@ -246,6 +260,22 @@ function App() {
                 fighters: prev.fighters.map((e) => {
                     if (e.id === fighter.id) {
                         return updateFighter(data, fighter)
+                    } else return e
+                }),
+            }
+        })
+    }
+
+    const battleUpdateFighter = (fighter, damage) => {
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+        setGameState((prev) => {
+            return {
+                ...prev,
+                fighters: prev.fighters.map((e) => {
+                    if (e.id === fighter.id) {
+                        return battleUpdate(fighter, damage)
                     } else return e
                 }),
             }
@@ -392,6 +422,7 @@ function App() {
                         >
                             Потратить действие
                         </button>
+                        <button onClick={onAttack}>Атаковать</button>
 
                         <div id="turn">
                             <button onClick={backUp}></button>

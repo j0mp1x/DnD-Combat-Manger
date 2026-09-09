@@ -1,5 +1,8 @@
+import { ATTACK_MODIFIERS } from '../UTILITES/CONSTANTS'
+import { rollDice } from '../UTILITES/dice'
 import { createNewId } from '../UTILITES/idCreator'
 import { CLASS_LIST } from './class'
+import { sword } from './weapons'
 
 class Preset {
     constructor({
@@ -26,13 +29,29 @@ class Preset {
         this.maxActions = Number(maxActions) > 0 ? Number(maxActions) : 1
         this.maxHp = Number(maxHp)
         this.hp = Number(this.maxHp)
-        this.armorClass = 1
+        this.armorClass = Number(armorClass)
         this.str = Number(str)
         this.dex = Number(dex)
         this.con = Number(con)
         this.int = Number(int)
         this.wis = Number(wis)
         this.cha = Number(cha)
+        this.proficiencyBonus = 2
+        this.attacks = {
+            attack: {
+                name: 'Атака мечом',
+                weapon: sword,
+                damage: {
+                    diceQuantity: sword.damage.diceQuantity,
+                    diceType: sword.damage.diceType,
+                },
+                modifire: sword.getType(),
+            },
+        }
+    }
+
+    getPB() {
+        return Math.ceil(this.level / 4) + 1
     }
 
     getMod(stat) {
@@ -56,12 +75,41 @@ class Preset {
         }
     }
 
+    setHp(deltaHp, isHeal = false) {
+        if (isHeal) {
+            this.hp += deltaHp
+            this.hp > this.maxHp ? (this.hp = this.maxHp) : (this.hp = this.hp)
+        } else {
+            this.hp -= deltaHp
+        }
+    }
+
     setParametrs() {
         this.armorClass = 10 + this.getMod(this.dex)
+        this.proficiencyBonus = this.getPB()
         if (this.isPlayer === 'on') {
             this.setMaxHp()
-            console.log('lol')
         }
+    }
+
+    attack() {
+        let mod
+        if (this.attacks.attack.modifire === ATTACK_MODIFIERS.dex) {
+            mod = this.getMod(this.dex)
+        } else if (this.attacks.attack.modifire === ATTACK_MODIFIERS.str) {
+            mod = this.getMod(this.str)
+        } else if (this.attacks.attack.modifire === ATTACK_MODIFIERS.unity) {
+            this.dex >= this.str
+                ? (mod = this.getMod(this.dex))
+                : (mod = this.getMod(this.str))
+        }
+        const dmg =
+            rollDice(
+                this.attacks.attack.damage.diceQuantity,
+                this.attacks.attack.damage.diceType
+            ) + mod
+        console.log(dmg)
+        return dmg
     }
 }
 
