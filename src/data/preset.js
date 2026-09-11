@@ -67,10 +67,8 @@ class Preset {
                 totalAddedHp += this.dndClass.hpPerLevel + this.getMod(this.con)
             }
             this.maxHp =
-                this.dndClass.firstLvlHp +
-                this.getMod(this.con) +
-                totalAddedHp +
-                12
+                this.dndClass.firstLvlHp + this.getMod(this.con) + totalAddedHp // +
+            //12
             this.hp = this.maxHp
         }
     }
@@ -85,7 +83,11 @@ class Preset {
     }
 
     setParametrs() {
-        this.armorClass = 10 + this.getMod(this.dex)
+        if (this.dndClass.name === CLASS_LIST.BARBARIAN.name) {
+            this.armorClass = 10 + this.getMod(this.dex) + this.getMod(this.con)
+        } else {
+            this.armorClass = 10 + this.getMod(this.dex)
+        }
         this.proficiencyBonus = this.getPB()
         if (this.isPlayer === 'on') {
             this.setMaxHp()
@@ -108,7 +110,6 @@ class Preset {
                 this.attacks.attack.damage.diceQuantity,
                 this.attacks.attack.damage.diceType
             ) + mod
-        console.log(dmg)
         return dmg
     }
 }
@@ -171,6 +172,21 @@ const defaultPresets = [
         int: 14,
         wis: 14,
         cha: 14,
+    }),
+
+    createPreset({
+        name: 'Фарам',
+        isPlayer: 'on',
+        dndClass: CLASS_LIST.BARBARIAN,
+        level: 2,
+        maxHp: 25,
+        armorClass: 12,
+        str: 16,
+        dex: 14,
+        con: 16,
+        int: 9,
+        wis: 12,
+        cha: 10,
     }),
 ]
 

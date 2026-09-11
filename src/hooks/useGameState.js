@@ -173,11 +173,10 @@ const useGameState = (setConfirmModal) => {
                         currentFighter: 0,
                         round: prev.round + 1,
                         fighters: prev.fighters.map((e) => {
-                            return {
-                                ...e,
-                                reaction: true,
-                                action: e.maxActions,
-                            }
+                            const cf = battleUpdate(e)
+                            cf.action = e.maxActions
+                            cf.reaction = true
+                            return cf
                         }),
                     }
                 } else {
@@ -200,7 +199,9 @@ const useGameState = (setConfirmModal) => {
                 fighters: prev.fighters.map((e) => {
                     if (e.id === f.id) {
                         const newReaction = e.reaction ? false : true
-                        return { ...e, reaction: newReaction }
+                        const cf = battleUpdate(e)
+                        cf.reaction = newReaction
+                        return cf
                     } else return e
                 }),
             }
@@ -214,11 +215,10 @@ const useGameState = (setConfirmModal) => {
                 currentFighter: 0,
                 round: 1,
                 fighters: prev.fighters.map((e) => {
-                    return {
-                        ...e,
-                        reaction: true,
-                        action: e.maxActions,
-                    }
+                    const cf = battleUpdate(e)
+                    cf.action = e.maxActions
+                    cf.reaction = true
+                    return cf
                 }),
             }
         })
@@ -246,11 +246,10 @@ const useGameState = (setConfirmModal) => {
                 ...prev,
                 fighters: prev.fighters.map((e) => {
                     if (e.id === prev.fighters[prev.currentFighter].id) {
-                        return {
-                            ...e,
-                            action:
-                                prev.fighters[prev.currentFighter].action - 1,
-                        }
+                        const changedFighter = battleUpdate(e)
+                        changedFighter.action =
+                            prev.fighters[prev.currentFighter].action - 1
+                        return changedFighter
                     } else return e
                 }),
             }
@@ -260,12 +259,15 @@ const useGameState = (setConfirmModal) => {
     }
 
     const onAttack = () => {
-        let currentFighter = gameState.fighters[gameState.currentFighter]
+        if (onUseAction()) {
+            let attacer = gameState.fighters[gameState.currentFighter]
+            let target = gameState.fighters[gameState.currentFighter + 1]
 
-        battleUpdateFighter(
-            gameState.fighters[gameState.currentFighter + 1],
-            currentFighter.attack()
-        )
+            if (attacer.action > 0) {
+                battleUpdateFighter(target, attacer.attack())
+            }
+            return true
+        } else return false
     }
 
     const battleUpdateFighter = (fighter, damage) => {

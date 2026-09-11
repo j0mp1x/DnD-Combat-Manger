@@ -32,11 +32,13 @@ const updateFighter = (data, fighter) => {
     return newFighter
 }
 
-const battleUpdate = (fighter, damage) => {
+const battleUpdate = (fighter, damage = 0) => {
     const newFighter = new Fighter(fighter)
     newFighter.id = fighter.id
     newFighter.initiative = fighter.initiative
     newFighter.hp = fighter.hp - damage
+    newFighter.action = fighter.action
+    newFighter.reaction = fighter.reaction
     return newFighter
 }
 

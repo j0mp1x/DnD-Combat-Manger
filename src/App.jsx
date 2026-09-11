@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import ConfirmModal from './components/confirmModal'
 import FormModal from './components/formModal'
 import getDataFromForm from './UTILITES/getData'
-import { currentId, setCurrentId } from './UTILITES/idCreator'
+import { currentId } from './UTILITES/idCreator'
 import useGameState from './hooks/useGameState'
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
 
     const [actionError, setActionError] = useState(false)
 
-    const onUseActionClick = () => {
-        const success = onUseAction()
+    const onButtonClick = (callback) => {
+        const success = callback()
 
         if (!success) {
             setActionError(true)
@@ -162,11 +162,24 @@ function App() {
                                     ? 'actionButton actionError'
                                     : 'actionButton'
                             }
-                            onClick={onUseActionClick}
+                            onClick={() => {
+                                onButtonClick(onUseAction)
+                            }}
                         >
-                            Потратить действие
+                            Действие (
+                            {gameState.fighters[gameState.currentFighter]
+                                ? gameState.fighters[gameState.currentFighter]
+                                      .action
+                                : ''}
+                            )
                         </button>
-                        <button onClick={onAttack}>Атаковать</button>
+                        <button
+                            onClick={() => {
+                                onButtonClick(onAttack)
+                            }}
+                        >
+                            Атаковать
+                        </button>
 
                         <div id="turn">
                             <button onClick={backUp}></button>
