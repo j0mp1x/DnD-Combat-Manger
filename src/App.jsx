@@ -182,35 +182,28 @@ function App() {
                         >
                             Атаковать
                         </button>
-                        <form action={handleSubmitTarget}>
-                            <select
-                                name="target"
-                                value={
+                        <select
+                            name="target"
+                            value={
+                                gameState.fighters[gameState.currentFighter]
+                                    ?.target ?? ''
+                            }
+                            onChange={setTarget}
+                        >
+                            {gameState.fighters.map((e) => {
+                                if (
+                                    e.id !==
                                     gameState.fighters[gameState.currentFighter]
-                                        ?.target?.id ?? ''
+                                        .id
+                                ) {
+                                    return (
+                                        <option key={e.id} value={e.id}>
+                                            {e.name}
+                                        </option>
+                                    )
                                 }
-                                onChange={(e) => {
-                                    setTarget(e)
-                                }}
-                            >
-                                {gameState.fighters.map((e) => {
-                                    if (
-                                        e.id !==
-                                        gameState.fighters[
-                                            gameState.currentFighter
-                                        ].id
-                                    ) {
-                                        return (
-                                            <option key={e.id} value={e.id}>
-                                                {e.name}
-                                            </option>
-                                        )
-                                    }
-                                })}
-                            </select>
-                            <button>Установить цель</button>
-                        </form>
-
+                            })}
+                        </select>
                         <div id="turn">
                             <button onClick={backUp}></button>
                             <button

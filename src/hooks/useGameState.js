@@ -306,9 +306,7 @@ const useGameState = (setConfirmModal) => {
     const onAttack = () => {
         if (onUseAction()) {
             let attacer = gameState.fighters[gameState.currentFighter]
-            let target = gameState.fighters.find(
-                (e) => e.id === attacer.target.id
-            )
+            let target = gameState.fighters.find((e) => e.id === attacer.target)
             console.log(target)
 
             battleUpdateFighter(target, attacer.attack())
