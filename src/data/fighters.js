@@ -9,6 +9,7 @@ class Fighter extends Preset {
         this.initiative = Number(initiative) + this.getMod(this.dex)
         this.reaction = true
         this.action = Number(this.maxActions)
+        this.target = null
     }
 }
 
@@ -39,6 +40,7 @@ const battleUpdate = (fighter, damage = 0) => {
     newFighter.hp = fighter.hp - damage
     newFighter.action = fighter.action
     newFighter.reaction = fighter.reaction
+    newFighter.target = fighter.target
     return newFighter
 }
 

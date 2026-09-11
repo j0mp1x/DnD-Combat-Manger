@@ -34,6 +34,7 @@ function App() {
 
     const {
         gameState,
+        handleSubmitTarget,
         onEndTurn,
         backUp,
         loadFromLocalStorage,
@@ -180,6 +181,31 @@ function App() {
                         >
                             Атаковать
                         </button>
+                        <form action={handleSubmitTarget}>
+                            <select
+                                name="target"
+                                defaultValue={
+                                    gameState.fighters[gameState.currentFighter]
+                                        ?.target?.id ?? ''
+                                }
+                            >
+                                {gameState.fighters.map((e) => {
+                                    if (
+                                        e.id !==
+                                        gameState.fighters[
+                                            gameState.currentFighter
+                                        ].id
+                                    ) {
+                                        return (
+                                            <option key={e.id} value={e.id}>
+                                                {e.name}
+                                            </option>
+                                        )
+                                    }
+                                })}
+                            </select>
+                            <button>Установить цель</button>
+                        </form>
 
                         <div id="turn">
                             <button onClick={backUp}></button>

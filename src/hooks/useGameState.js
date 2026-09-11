@@ -150,6 +150,30 @@ const useGameState = (setConfirmModal) => {
 
     // interface and actions
 
+    const handleSubmitTarget = (data) => {
+        const target = gameState.fighters.find(
+            (e) => e.id === Number(data.get('target'))
+        )
+        gameState.fighters[gameState.currentFighter].target = target
+
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+
+        setGameState((prev) => {
+            return {
+                ...prev,
+                fighters: prev.fighters.map((e) => {
+                    if (e.id === prev.currentFighter) {
+                        const cf = battleUpdate(e)
+                        cf.target = target
+                        return cf
+                    } else return e
+                }),
+            }
+        })
+    }
+
     const backUp = () => {
         if (prevGameState.length > 1) {
             setGameState((prev) => {
@@ -261,11 +285,13 @@ const useGameState = (setConfirmModal) => {
     const onAttack = () => {
         if (onUseAction()) {
             let attacer = gameState.fighters[gameState.currentFighter]
-            let target = gameState.fighters[gameState.currentFighter + 1]
+            let target = gameState.fighters.find(
+                (e) => e.id === attacer.target.id
+            )
+            console.log(target)
 
-            if (attacer.action > 0) {
-                battleUpdateFighter(target, attacer.attack())
-            }
+            battleUpdateFighter(target, attacer.attack())
+
             return true
         } else return false
     }
@@ -290,6 +316,7 @@ const useGameState = (setConfirmModal) => {
 
     return {
         gameState,
+        handleSubmitTarget,
         backUp,
         onEndTurn,
         loadFromLocalStorage,
