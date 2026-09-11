@@ -51,6 +51,7 @@ function App() {
         onUseAction,
         battleUpdateFighter,
         onAttack,
+        setTarget,
     } = useGameState(setConfirmModal)
 
     const isFirstRender = useRef(true)
@@ -184,10 +185,13 @@ function App() {
                         <form action={handleSubmitTarget}>
                             <select
                                 name="target"
-                                defaultValue={
+                                value={
                                     gameState.fighters[gameState.currentFighter]
                                         ?.target?.id ?? ''
                                 }
+                                onChange={(e) => {
+                                    setTarget(e)
+                                }}
                             >
                                 {gameState.fighters.map((e) => {
                                     if (

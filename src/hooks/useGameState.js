@@ -164,9 +164,30 @@ const useGameState = (setConfirmModal) => {
             return {
                 ...prev,
                 fighters: prev.fighters.map((e) => {
-                    if (e.id === prev.currentFighter) {
+                    if (e.id === prev.fighters[prev.currentFighter].id) {
                         const cf = battleUpdate(e)
                         cf.target = target
+                        return cf
+                    } else return e
+                }),
+            }
+        })
+    }
+
+    const setTarget = (event) => {
+        const targetId = Number(event.target.value)
+
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+
+        setGameState((prev) => {
+            return {
+                ...prev,
+                fighters: prev.fighters.map((e) => {
+                    if (e.id === prev.fighters[prev.currentFighter].id) {
+                        const cf = battleUpdate(e)
+                        cf.target = targetId
                         return cf
                     } else return e
                 }),
@@ -333,6 +354,7 @@ const useGameState = (setConfirmModal) => {
         onUseAction,
         battleUpdateFighter,
         onAttack,
+        setTarget,
     }
 }
 
