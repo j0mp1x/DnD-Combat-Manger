@@ -157,7 +157,7 @@ function App() {
                             })}
                         </div>
                     </div>
-                    <div id="actions">
+                    <div className="combatActions">
                         <button
                             className={
                                 actionError
@@ -183,6 +183,7 @@ function App() {
                             Атаковать
                         </button>
                         <select
+                            className="targetSelect"
                             name="target"
                             value={
                                 gameState.fighters[gameState.currentFighter]
@@ -202,8 +203,11 @@ function App() {
                                         </option>
                                     )
                                 }
+                                return null
                             })}
                         </select>
+                    </div>
+                    <div id="actions">
                         <div id="turn">
                             <button onClick={backUp}></button>
                             <button

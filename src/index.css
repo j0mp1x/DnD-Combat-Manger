@@ -565,3 +565,36 @@ button:hover {
     background: #8b2020;
     border-color: #ff4444;
 }
+
+/* combat actions Target Select */
+
+.combatActions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.combatActions button {
+    margin: 0;
+}
+
+.targetSelect {
+    padding: 12px 14px;
+    background: #202027;
+    color: #e7e5eb;
+    border: 1px solid #8b5cf6;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.targetSelect:hover {
+    border-color: #a78bfa;
+}
+
+.targetSelect:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15);
+}
