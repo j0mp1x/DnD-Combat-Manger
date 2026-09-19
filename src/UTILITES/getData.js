@@ -12,7 +12,7 @@ const getDataFromForm = (data) => {
         level: data.get('level'),
         maxHp: data.get('maxHp'),
         maxActions: data.get('maxActions'),
-        armorClass: data.get('armorClass'),
+        basedArmor: data.get('basedArmor'),
         initiative: data.get('initiative'),
         saveAsPreset: data.get('saveAsPreset'),
         str: data.get('str'),

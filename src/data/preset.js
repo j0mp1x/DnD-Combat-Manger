@@ -60,7 +60,7 @@ class Preset {
     }
 
     setMaxHp() {
-        if (!this.isPlayer) {
+        if (!this.isPlayer && this.maxHp) {
             this.hp = this.maxHp
         } else {
             let totalAddedHp = 0

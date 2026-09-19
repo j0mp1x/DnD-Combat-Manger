@@ -83,7 +83,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 Класс защиты от брони
                                 <input
                                     type="number"
-                                    name="armorClass"
+                                    name="basedArmor"
                                     placeholder="Класс защиты"
                                     min={1}
                                     defaultValue={value ? value.basedArmor : ''}
