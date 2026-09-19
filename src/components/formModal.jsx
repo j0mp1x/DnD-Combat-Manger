@@ -33,15 +33,13 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                         value ? value.dndClass.name : ''
                                     }
                                 >
-                                    <option value={CLASS_LIST.WARRIOR.name}>
-                                        {CLASS_LIST.WARRIOR.name}
-                                    </option>
-                                    <option value={CLASS_LIST.MONK.name}>
-                                        {CLASS_LIST.MONK.name}
-                                    </option>
-                                    <option value={CLASS_LIST.WARLOCK.name}>
-                                        {CLASS_LIST.WARLOCK.name}
-                                    </option>
+                                    {Object.values(CLASS_LIST).map((e) => {
+                                        return (
+                                            <option value={e.name}>
+                                                {e.name}
+                                            </option>
+                                        )
+                                    })}
                                 </select>
                             </label>
                         </div>

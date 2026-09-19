@@ -52,6 +52,11 @@ function App() {
         battleUpdateFighter,
         onAttack,
         setTarget,
+        takeDamage,
+        setGlobalTarget,
+        setGlobalDamageQ,
+        setGlobalDamageDice,
+        setJustDamage,
     } = useGameState(setConfirmModal)
 
     const isFirstRender = useRef(true)
@@ -191,6 +196,7 @@ function App() {
                             }
                             onChange={setTarget}
                         >
+                            <option value="">Выбрать цель</option>
                             {gameState.fighters.map((e) => {
                                 if (
                                     e.id !==
@@ -219,6 +225,66 @@ function App() {
                                 Закончить ход
                             </button>
                             <button onClick={onEndCombat}>Закончить бой</button>
+                            <button onClick={takeDamage}>Нанести урон</button>
+                            <select
+                                className="targetSelect"
+                                name="globalTarget"
+                                value={
+                                    gameState.globalTarget
+                                        ? gameState.fighters.find(
+                                              (e) =>
+                                                  e.id ===
+                                                  gameState.globalTarget
+                                          ).id
+                                        : ''
+                                }
+                                onChange={setGlobalTarget}
+                            >
+                                <option value="">Выбрать цель</option>
+                                {gameState.fighters.map((e) => {
+                                    return (
+                                        <option key={e.id} value={e.id}>
+                                            {e.name}
+                                        </option>
+                                    )
+                                })}
+                            </select>
+                            <form>
+                                <label>
+                                    <input
+                                        type="number"
+                                        name="quantity"
+                                        value={
+                                            gameState.globalDamageDice.quantity
+                                        }
+                                        onChange={setGlobalDamageQ}
+                                    />
+                                </label>
+                                <label>
+                                    <select
+                                        name="dices"
+                                        onChange={setGlobalDamageDice}
+                                    >
+                                        <option value="4">d4</option>
+                                        <option value="6">d6</option>
+                                        <option value="8">d8</option>
+                                        <option value="10">d10</option>
+                                        <option value="12">d12</option>
+                                        <option value="20">d20</option>
+                                        <option value="100">d100</option>
+                                    </select>
+                                </label>
+                            </form>
+                            <label>
+                                Или просто урон.
+                                <input
+                                    type="number"
+                                    name="justDamage"
+                                    value={gameState.justDamage}
+                                    onChange={setJustDamage}
+                                />
+                                (если тут 0, то будет бросок кубика)
+                            </label>
                         </div>
                     </div>
                 </div>

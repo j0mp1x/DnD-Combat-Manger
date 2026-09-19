@@ -11,6 +11,8 @@ const CLASS_LIST = {
     MONK: new DndClass('Монах', 8, 5),
     WARLOCK: new DndClass('Колдун', 8, 5),
     BARBARIAN: new DndClass('Варвар', 12, 7),
+    ROUGE: new DndClass('Плут', 8, 5),
+    PRIEST: new DndClass('Жрец', 8, 5),
 }
 
 export { CLASS_LIST }

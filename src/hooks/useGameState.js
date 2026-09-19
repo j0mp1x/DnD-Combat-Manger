@@ -8,6 +8,7 @@ import {
 import { defaultPresets, createPreset } from '../data/preset'
 import { setCurrentId, currentId } from '../UTILITES/idCreator'
 import { updatePreset } from '../data/preset'
+import { rollDice } from '../UTILITES/dice'
 
 const useGameState = (setConfirmModal) => {
     // States and Effects
@@ -17,6 +18,9 @@ const useGameState = (setConfirmModal) => {
         presets: [...defaultPresets],
         round: 1,
         currentFighter: 0,
+        globalTarget: null,
+        globalDamageDice: { quantity: 1, dice: 6 },
+        justDamage: 0,
     })
 
     const [prevGameState, setPrevGameState] = useState([{}])
@@ -195,6 +199,95 @@ const useGameState = (setConfirmModal) => {
         })
     }
 
+    const setGlobalTarget = (event) => {
+        const id = Number(event.target.value)
+
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+
+        setGameState((prev) => {
+            return {
+                ...prev,
+                globalTarget: id,
+            }
+        })
+    }
+
+    const setGlobalDamageQ = async (event) => {
+        const q = Number(event.target.value)
+
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+
+        setGameState((prev) => {
+            return {
+                ...prev,
+                globalDamageDice: { ...prev.globalDamageDice, quantity: q },
+            }
+        })
+    }
+    const setGlobalDamageDice = async (event) => {
+        const q = Number(event.target.value)
+
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+
+        setGameState((prev) => {
+            return {
+                ...prev,
+                globalDamageDice: { ...prev.globalDamageDice, dice: q },
+            }
+        })
+    }
+
+    const setJustDamage = (event) => {
+        const d = Number(event.target.value)
+
+        setPrevGameState((prev) => {
+            return [...prev, gameState]
+        })
+
+        setGameState((prev) => {
+            return {
+                ...prev,
+                justDamage: d,
+            }
+        })
+    }
+
+    const takeDamage = () => {
+        if (gameState.globalTarget && gameState.globalDamageDice.quantity) {
+            const target = gameState.globalTarget
+            let damage = rollDice(
+                gameState.globalDamageDice.quantity,
+                gameState.globalDamageDice.dice
+            )
+
+            if (gameState.justDamage) {
+                damage = gameState.justDamage
+            }
+
+            setPrevGameState((prev) => {
+                return [...prev, gameState]
+            })
+            setGameState((prev) => {
+                return {
+                    ...prev,
+                    fighters: prev.fighters.map((e) => {
+                        if (e.id === target) {
+                            const cf = battleUpdate(e, damage)
+                            return cf
+                        } else return e
+                    }),
+                    justDamage: 0,
+                }
+            })
+        }
+    }
+
     const backUp = () => {
         if (prevGameState.length > 1) {
             setGameState((prev) => {
@@ -304,14 +397,19 @@ const useGameState = (setConfirmModal) => {
     }
 
     const onAttack = () => {
-        if (onUseAction()) {
-            let attacer = gameState.fighters[gameState.currentFighter]
-            let target = gameState.fighters.find((e) => e.id === attacer.target)
-            console.log(target)
+        let attacer = gameState.fighters[gameState.currentFighter]
 
-            battleUpdateFighter(target, attacer.attack())
+        if (attacer.target) {
+            if (onUseAction()) {
+                let target = gameState.fighters.find(
+                    (e) => e.id === attacer.target
+                )
+                console.log(target)
 
-            return true
+                battleUpdateFighter(target, attacer.attack())
+
+                return true
+            } else return false
         } else return false
     }
 
@@ -353,6 +451,11 @@ const useGameState = (setConfirmModal) => {
         battleUpdateFighter,
         onAttack,
         setTarget,
+        takeDamage,
+        setGlobalTarget,
+        setGlobalDamageQ,
+        setGlobalDamageDice,
+        setJustDamage,
     }
 }
 

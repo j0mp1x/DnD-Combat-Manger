@@ -1,5 +1,9 @@
 const rollDice = (quantity, d) => {
-    return Math.floor(Math.random() * d) + 1
+    let totalValue = 0
+    for (let i = 0; i < quantity; i++) {
+        totalValue += Math.floor(Math.random() * d) + 1
+    }
+    return totalValue
 }
 
 export { rollDice }
