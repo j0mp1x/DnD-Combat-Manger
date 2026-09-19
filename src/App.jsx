@@ -89,7 +89,7 @@ function App() {
                                             f.id ===
                                             gameState.fighters[
                                                 gameState.currentFighter
-                                            ].id
+                                            ]?.id
                                                 ? 'currentFighter'
                                                 : ''
                                         }`}
@@ -267,6 +267,9 @@ function App() {
                                     <label>
                                         <select
                                             name="dices"
+                                            value={
+                                                gameState.globalDamageDice.dice
+                                            }
                                             onChange={setGlobalDamageDice}
                                         >
                                             <option value="4">d4</option>
