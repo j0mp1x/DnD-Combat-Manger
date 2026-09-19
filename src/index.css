@@ -599,3 +599,83 @@ button:hover {
     border-color: #a78bfa;
     box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15);
 }
+
+/* Global target and damage*/
+
+.diceControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.diceControls input,
+.diceControls select {
+    height: 40px;
+    padding: 8px 10px;
+
+    background: #202027;
+    color: #e7e5eb;
+
+    border: 1px solid #34333d;
+    border-radius: 7px;
+
+    font-size: 16px;
+    outline: none;
+
+    transition: 0.15s;
+}
+
+.diceControls input {
+    width: 70px;
+    text-align: center;
+}
+
+.diceControls select {
+    min-width: 100px;
+    cursor: pointer;
+}
+
+.diceControls input:focus,
+.diceControls select:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15);
+}
+
+.diceControls input:hover,
+.diceControls select:hover {
+    border-color: #5a5865;
+}
+
+.globalTarget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.globalTarget select {
+    min-width: 180px;
+    padding: 10px 12px;
+
+    background: #202027;
+    color: #e7e5eb;
+
+    border: 1px solid #8b5cf6;
+    border-radius: 7px;
+
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+
+    transition: 0.15s;
+}
+
+.globalTarget select:hover {
+    border-color: #a78bfa;
+}
+
+.globalTarget select:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15);
+}

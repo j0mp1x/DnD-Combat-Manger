@@ -11,7 +11,7 @@ class Weapon {
     getType() {
         if (this.type === WEAPON_TYPES.RANGED_WEAPON) {
             return ATTACK_MODIFIERS.dex
-        } else if (this.type === WEAPON_TYPES && this.isFinesse) {
+        } else if (this.type === WEAPON_TYPES.MELEE_WEAPON && this.isFinesse) {
             return ATTACK_MODIFIERS.unity
         } else {
             return ATTACK_MODIFIERS.str
