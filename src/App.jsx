@@ -236,7 +236,7 @@ function App() {
                                                   (e) =>
                                                       e.id ===
                                                       gameState.globalTarget
-                                              ).id
+                                              )?.id
                                             : ''
                                     }
                                     onChange={setGlobalTarget}

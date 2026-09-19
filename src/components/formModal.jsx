@@ -35,7 +35,7 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                                 >
                                     {Object.values(CLASS_LIST).map((e) => {
                                         return (
-                                            <option value={e.name}>
+                                            <option value={e.name} key={e.name}>
                                                 {e.name}
                                             </option>
                                         )
@@ -80,13 +80,13 @@ const FormModal = ({ isOpen, onSubmit, onClose, getData, value }) => {
                         </div>
                         <div className="formFields">
                             <label>
-                                Класс защиты
+                                Класс защиты от брони
                                 <input
                                     type="number"
                                     name="armorClass"
                                     placeholder="Класс защиты"
                                     min={1}
-                                    defaultValue={value ? value.armorClass : ''}
+                                    defaultValue={value ? value.basedArmor : ''}
                                 />
                             </label>
                         </div>

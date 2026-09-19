@@ -29,6 +29,7 @@ const updateFighter = (data, fighter) => {
     newFighter.id = fighter.id
     newFighter.initiative = fighter.initiative
     newFighter.target = fighter.target
+    newFighter.basedArmor = fighter.basedArmor
     newFighter.setMaxHp()
     newFighter.setParametrs()
     return newFighter
@@ -42,6 +43,8 @@ const battleUpdate = (fighter, damage = 0) => {
     newFighter.action = fighter.action
     newFighter.reaction = fighter.reaction
     newFighter.target = fighter.target
+    newFighter.basedArmor = fighter.basedArmor
+    newFighter.armorClass = fighter.armorClass
     return newFighter
 }
 

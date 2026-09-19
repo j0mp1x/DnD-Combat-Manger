@@ -10,7 +10,7 @@ class Preset {
         dndClass,
         level,
         maxHp,
-        armorClass,
+        basedArmor = 10,
         maxActions = 1,
         id = createNewId(),
         str,
@@ -29,7 +29,8 @@ class Preset {
         this.maxActions = Number(maxActions) > 0 ? Number(maxActions) : 1
         this.maxHp = Number(maxHp)
         this.hp = Number(this.maxHp)
-        this.armorClass = Number(armorClass)
+        this.basedArmor = Number(basedArmor)
+        this.armorClass = 0
         this.str = Number(str)
         this.dex = Number(dex)
         this.con = Number(con)
@@ -83,10 +84,17 @@ class Preset {
     }
 
     setParametrs() {
-        if (this.dndClass.name === CLASS_LIST.BARBARIAN.name) {
-            this.armorClass = 10 + this.getMod(this.dex) + this.getMod(this.con)
+        if (this.armorClass) {
+            this.armorClass = this.armorClass
         } else {
-            this.armorClass = 10 + this.getMod(this.dex)
+            if (this.dndClass.name === CLASS_LIST.BARBARIAN.name) {
+                this.armorClass =
+                    this.basedArmor +
+                    this.getMod(this.dex) +
+                    this.getMod(this.con)
+            } else {
+                this.armorClass = this.basedArmor + this.getMod(this.dex)
+            }
         }
         this.proficiencyBonus = this.getPB()
         if (this.isPlayer === 'on') {
@@ -135,7 +143,6 @@ const defaultPresets = [
         isPlayer: 'on',
         dndClass: CLASS_LIST.WARRIOR,
         level: 3,
-        armorClass: 14,
         str: 12,
         dex: 16,
         con: 14,
@@ -150,7 +157,6 @@ const defaultPresets = [
         dndClass: CLASS_LIST.MONK,
         level: 3,
         maxHp: 40,
-        armorClass: 13,
         str: 14,
         dex: 14,
         con: 14,
@@ -165,7 +171,6 @@ const defaultPresets = [
         dndClass: CLASS_LIST.WARLOCK,
         level: 3,
         maxHp: 40,
-        armorClass: 12,
         str: 14,
         dex: 14,
         con: 16,
@@ -180,12 +185,41 @@ const defaultPresets = [
         dndClass: CLASS_LIST.BARBARIAN,
         level: 2,
         maxHp: 25,
-        armorClass: 12,
         str: 16,
         dex: 14,
         con: 16,
         int: 9,
         wis: 12,
+        cha: 10,
+    }),
+
+    createPreset({
+        name: 'Cirillo',
+        isPlayer: 'on',
+        dndClass: CLASS_LIST.ROUGE,
+        level: 2,
+        maxHp: 25,
+        basedArmor: 11,
+        str: 9,
+        dex: 16,
+        con: 14,
+        int: 16,
+        wis: 10,
+        cha: 12,
+    }),
+
+    createPreset({
+        name: 'Предвесник',
+        isPlayer: 'on',
+        dndClass: CLASS_LIST.PRIEST,
+        level: 2,
+        maxHp: 25,
+        basedArmor: 14,
+        str: 12,
+        dex: 11,
+        con: 16,
+        int: 12,
+        wis: 16,
         cha: 10,
     }),
 ]

@@ -356,6 +356,7 @@ const useGameState = (setConfirmModal) => {
                     const cf = battleUpdate(e)
                     cf.action = e.maxActions
                     cf.reaction = true
+                    cf.hp = cf.maxHp
                     return cf
                 }),
             }
